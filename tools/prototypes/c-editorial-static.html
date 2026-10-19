@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- stardust:provenance
+  writtenBy:        stardust:prototype (impeccable:craft) via stardust:uplift
+  writtenAt:        2026-10-19T19:30:00Z
+  page:             index
+  variant:          C
+  pageUrl:          https://frescopa.coffee/
+  againstDirection: stardust/direction.md (2026-10-19T19:05:00Z)
+  consumedBy:       impeccable:craft
+  readArtifacts:
+    - stardust/current/pages/index.json
+    - stardust/current/_brand-extraction.json
+    - DESIGN-C.md
+    - DESIGN-C.json
+    - stardust/direction.md
+    - stardust/prototypes/index-A-shape.md
+  stardustVersion:  0.18.2
+  capturedTraitAmplified: "voice-register pivot &#8212; This variant amplifies the sensory tasting-note voice (3 captured sentences) over the promo voice (8 captured lines) in service of Brand Personality 'craft and ritual rather than performance'."
+  motion:
+    register: editorial
+    registerSource: direct
+  capturedSourceLineage:
+    announcement-bar: "system-component"
+    header: "system-component"
+    hero: "pages/index.json#headings[0], ctas[Take our Coffee Quiz]; image media_18d60179&#8230;"
+    sensory-notes: "pages/index.json#headings[1], body[0], body[8] (House Blend sentence) &#8212; captured sensory sentences, verbatim; the House Blend sentence is not repeated in the subscription caption"
+    store-locator: "pages/index.json#headings[2]; footer address (live DOM)"
+    category-tiles: "pages/index.json#headings[3..8]"
+    subscription: "pages/index.json#headings[9..13], body"
+    rewards: "pages/index.json#headings[14]"
+    footer: "system-component"
+  antiTemplatePass:
+    - { pattern: "hero composition", defaultReflex: "centered-stack hero with two-button CTA pair", alternatives: ["full-bleed photo with scrim (A)", "pinned stage: photo fills the viewport, text arrives as one reading column"], picked: "single-viewport photo stage with a left reading column", rationale: "editorial register: the first thing a reader gets is one line of type and one photograph, with a slow crossfade and micro-parallax" }
+    - { pattern: "offer banner", defaultReflex: "centered banner with one CTA", alternatives: ["art banner (captured)", "reading column that reveals captured sentences one at a time"], picked: "reading column", rationale: "the voice-register pivot is the trait; the sensory sentences become the layout" }
+  surprise: high
+  dominantDimension: motion-voice
+  compositionDelta_vs_A:
+    - "hero-layout: inset 12px-radius photo panel with vertically centred text &#8594; edge-to-edge 80vh stage with the headline anchored bottom-left and micro-parallax"
+    - "offer-layout: rounded art banner with one paragraph &#8594; centred 60ch reading column of captured sensory sentences revealed in turn"
+    - "subscription-layout: two-card grid &#8594; single centred module with the product card set as an inline caption"
+  compositionDelta_vs_B:
+    - "hero-layout: split panel &#8594; single-viewport stage"
+    - "section-order: B reorders tiles and locator; C keeps A's order"
+    - "ground-strategy: alternating bands &#8594; crema/white grounds only"
+  substrateTransitions: { default: "white page ground", exceptions: [ { section: "sensory-notes", substrate: "crema", purpose: "reading column ground" }, { section: "rewards", substrate: "deep teal", purpose: "captured reward banner art" } ] }
+  voiceClassification:
+    - { section: hero, classification: "captured-verbatim + grammar fix", copy: "Your perfect coffee is four questions away.", source: "headings[0]" }
+    - { section: sensory-notes, classification: captured-verbatim, copy: "three captured sentences in the order: 'Fall in love with rich aromas and bold flavors&#8212;every single day', 'savor hand-selected coffees&#8212;each chosen for their unique taste and aroma', 'Experience the bright, citrusy notes and smooth finish of House Blend Dark Roast.'", source: "headings[1], body[0], body[8]" }
+    - { section: others, classification: captured-verbatim }
+  signatureElements:
+    - { kind: motif, capturedSource: "styles/backgrounds/small.svg organic blobs", mechanism: "SVG art behind the reading column with &#8804;10vh micro-parallax", fallback: "crema ground, art static" }
+    - { kind: motif, capturedSource: "reward-banner-v1.svg", mechanism: "teal reward band", fallback: "teal ground" }
+  unsourcedContent: []
+  fontDeck:           brand-inherited (Baskerville system serif + Roboto; Mode A, no webfont loaded, Roboto falls back to the system UI face)
+  paletteSource:      inherited from _brand-extraction.json (oklch conversions of #58181D #2F2318 #F4E9DC #A33532 #00647D #DC6E52 #EBA439 #95351D #E05633)
+  reflexRejectAudit:  { bypassed: "Mode A pins captured families (Baskerville, Roboto)" }
+  copyCadenceBypass:  { rules: [em-dash-overuse, marketing-buzzword], basis: "copy classification captured-verbatim" }
+  unresolvedLinks:    "footer items without a captured href link to their parent category; Fr&#233;scopa Affiliate, Support and the legal links are rendered as plain text; Bundles tile links to /tea (footer placement)"
+  openQuestions:      "10% discount terms are not on the captured page; the stamp is retired and the offer is not placed. User-directed copy edits (2026-10-19): rewards body trimmed to its first captured sentence so it matches the 'Rewards unclaimed' headline and 'Claim Rewards' CTA; footer 'Kettles & Carafs' corrected to 'Kettles & Carafes' and the duplicate 'Carafs' link removed; the postcode field reads 'ZIP code' (US address). Variant A tile photos are captured from live category pages /machines (Fresco Original), /coffee (House Blend - Dark Roast, Morning Muse pod) and /accessories (Cappuccino Mug); the Bundles tile keeps its icon because no bundle photo exists on the capture. Fonts are not self-hosted (Baskerville is an Apple system face; falls to Georgia elsewhere)."
+  directionAuthorizedChrome: "skip link text, landmark names (Promotion, Footer, Primary), aria-labels on icon buttons"
+  validation:         "stardust/validation/index/validation-report.json (critique + audit by independent reviewers, detector, content-sourcing scan, nav audit, motion validation for C-cinematic)"
+-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Fr&#233;scopa &#8212; Coffee, Tea &amp; Accessories (variant C)</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <style>
+    :root{
+      /* Fr&#233;scopa tokens &#8212; oklch per DESIGN-*.md; brand-native role names */
+      --heading-font-family: Baskerville, "Baskerville Old Face", Georgia, serif;
+      --body-font-family: Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --heading-xxl: clamp(2.5rem, 1.6rem + 3.4vw, 3.8rem);   /* 61px at desktop */
+      --heading-xl: clamp(1.9rem, 1.4rem + 1.9vw, 3.05rem);   /* 49px */
+      --heading-lg: 1.95rem;                                  /* 31px */
+      --heading-md: 1.5625rem;                                /* 25px */
+      --body: 1rem;                                           /* 16px */
+      --body-sm: 0.8rem;                                      /* 12.8px */
+      --line-height-heading: 1.1;
+      --line-height-body: 1.6;
+      /* roast-maroon / crema / deep-teal */
+      --color-fg: oklch(0.316 0.094 20.0);
+      --color-bg: oklch(1 0 0);
+      --color-accent: oklch(0.467 0.087 222.7);
+      --roast-maroon: oklch(0.316 0.094 20.0);
+      --dark-roast: oklch(0.267 0.027 63.8);
+      --crema: oklch(0.939 0.021 72.1);
+      --cherry-red: oklch(0.490 0.146 25.7);
+      --deep-teal: oklch(0.467 0.087 222.7);
+      --terracotta: oklch(0.662 0.144 35.4);
+      --crema-amber: oklch(0.770 0.144 73.0);
+      --brick: oklch(0.463 0.134 35.1);
+      --white: oklch(1 0 0);
+      --spacing-xs: 8px; --spacing-sm: 16px; --spacing-md: 24px; --spacing-lg: 40px; --spacing-xl: 64px; --spacing-2xl: 96px;
+      --section-padding: 64px;
+      --max-width: 1360px;
+      --radius: 12px;
+      --radius-pill: 100px;
+      --shadow-card: 0 10px 20px 0 oklch(0 0 0 / 0.12);
+      --shadow-bar: 0 2px 16px 0 oklch(0 0 0 / 0.16);
+      --gutter: 40px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;hanging-punctuation:first}
+    body{margin:0;background:var(--color-bg);color:var(--color-fg);font:300 var(--body)/var(--line-height-body) var(--body-font-family);letter-spacing:.04em}
+    img{max-width:100%;display:block}
+    a{color:inherit}
+    h1,h2,h3{font-family:var(--heading-font-family);font-weight:400;line-height:var(--line-height-heading);margin:0;text-wrap:balance}
+    p{margin:0;text-wrap:pretty}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+    .loc-form :focus-visible,.loc-form form:focus-within{outline-color:var(--dark-roast)}
+    .rewards :focus-visible,.rewards-b .rpanel :focus-visible,.announce :focus-visible,.band--roast :focus-visible,.band--teal :focus-visible,.band--cherry :focus-visible,.hero-b :focus-visible,.stage :focus-visible,.hero :focus-visible{outline-color:var(--crema-amber)}
+    ::selection{background:var(--crema-amber);color:var(--dark-roast)}
+    :focus-visible{outline:2px solid var(--deep-teal);outline-offset:3px;border-radius:8px}
+    html{scrollbar-color:var(--terracotta) var(--crema)}
+    input{caret-color:var(--cherry-red)}
+    .wrap{max-width:calc(var(--max-width) + 2*var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+    label.label{display:block}
+    .label{font:500 var(--body-sm)/1.5 var(--body-font-family);letter-spacing:.08em;text-transform:uppercase}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 26px;border-radius:var(--radius-pill);font:500 1rem/1.2 var(--body-font-family);letter-spacing:.08em;text-decoration:none;border:0;cursor:pointer;color:var(--white);transition:background-color .25s var(--ease),transform .25s var(--ease)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn--teal{background:var(--deep-teal)}.btn--teal:hover{background:oklch(0.41 0.08 222.7)}
+    .btn--brick{background:var(--brick)}.btn--brick:hover{background:oklch(0.41 0.125 35.1)}
+    .btn--crema{background:var(--crema);color:var(--dark-roast)}.btn--crema:hover{background:var(--white)}
+
+    /* announcement */
+    .announce{background:var(--cherry-red);color:var(--crema)}
+    .skip{position:absolute;left:8px;top:-60px;z-index:50;background:var(--dark-roast);color:var(--crema);padding:12px 20px;border-radius:var(--radius-pill);font:500 1rem/1.2 var(--body-font-family);text-decoration:none}
+    .skip:focus{top:8px;outline:2px solid var(--crema-amber);outline-offset:2px}
+    .announce{padding:4px 40px}
+    .announce .wrap{display:flex;justify-content:space-between;align-items:center;gap:var(--spacing-sm);min-height:44px;max-width:1360px;margin-inline:auto;padding:0}
+    @media (max-width:900px){.announce{padding:4px 16px}}
+    a[href^=mailto]{display:inline-block;padding:13px 0}
+    .announce p{font:500 var(--body-sm)/1.4 var(--body-font-family);letter-spacing:.08em;text-transform:uppercase}
+    .announce a{font:500 var(--body-sm)/1.4 var(--body-font-family);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap;padding:8px 0;display:inline-flex;align-items:center;min-height:44px}
+    .announce a:hover{text-decoration:underline;text-underline-offset:3px}
+
+    /* header */
+    .site-head{position:sticky;top:0;z-index:20;background:var(--white);box-shadow:var(--shadow-bar)}
+    .site-head .wrap{display:flex;align-items:center;gap:var(--spacing-md);min-height:70px;position:relative}
+    .brand{display:inline-flex;align-items:center;min-height:44px;flex-shrink:0}
+    .brand img{height:34px;width:auto}
+    .ds-nav-toggle{position:absolute;opacity:0;pointer-events:none}
+    .ds-nav-burger{display:none}
+    .ds-nav{display:flex;align-items:center;gap:var(--spacing-md);flex:1}
+    .ds-nav ul{display:flex;gap:28px;list-style:none;margin:0 0 0 24px;padding:0}
+    .ds-nav ul a{display:inline-block;padding:12px 0;font:500 1rem/1.4 var(--body-font-family);letter-spacing:.04em;text-decoration:none}
+    .ds-nav ul a:hover{color:var(--deep-teal)}
+    .tools{display:flex;align-items:center;gap:4px;margin-left:auto}
+    .tools a,.tools button{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;color:var(--dark-roast);border-radius:50%}
+    .tools button{background:none;border:0;cursor:pointer;padding:0}
+    .tools a:hover,.tools button:hover{color:var(--deep-teal)}
+    .tools .signin{font:500 .8rem/1 var(--body-font-family);letter-spacing:.06em;border-radius:var(--radius-pill);padding:0 12px;color:var(--roast-maroon);text-decoration:none}
+    @media (max-width:900px){:root{--gutter:16px;--section-padding:40px}}
+    @media (max-width:1120px){
+      .site-head .wrap{gap:12px}
+      .ds-nav-burger{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-left:auto;order:3;cursor:pointer;font:500 .8rem/1 var(--body-font-family);letter-spacing:.06em}
+      .ds-nav-burger-icon{position:relative;width:22px;height:14px;border-top:2px solid currentColor;border-bottom:2px solid currentColor}
+      .ds-nav-burger-icon::before{content:"";position:absolute;left:0;right:0;top:4px;border-top:2px solid currentColor}
+      .ds-nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--white);box-shadow:var(--shadow-bar);flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gutter) 16px}
+      .ds-nav-toggle:checked ~ .ds-nav{display:flex}
+      .ds-nav ul{flex-direction:column;gap:0;margin:0}
+      .ds-nav ul a{display:block;padding:14px 0;border-bottom:1px solid var(--crema)}
+      .tools{margin:8px 0 0}
+      .ds-nav-toggle:focus-visible ~ .ds-nav-burger{outline:2px solid var(--deep-teal);outline-offset:3px;border-radius:8px}
+    }
+
+    /* section frame */
+    main > section{padding-block:0}
+    main > section.panel{width:min(var(--max-width),100% - 2*var(--gutter));margin-inline:auto}
+    .gap{margin-top:var(--spacing-lg)}
+    .panel{border-radius:var(--radius);overflow:hidden}
+
+    /* footer */
+    .site-foot{background:var(--crema);color:var(--roast-maroon);margin-top:var(--spacing-xl);padding-block:var(--spacing-xl) var(--spacing-md)}
+    .foot-grid{display:grid;grid-template-columns:1.3fr repeat(5,1fr);gap:var(--spacing-lg) var(--spacing-md)}
+    .foot-brand img{height:34px;width:auto;margin-bottom:16px}
+    .foot-brand p{font-size:1rem}
+    .foot-brand .name{font:500 1rem/1.5 var(--body-font-family);letter-spacing:.04em}
+    .foot-nav{display:contents}
+    .foot-col h2{font:500 1rem/1.5 var(--body-font-family);letter-spacing:.04em;margin-bottom:8px}
+    .foot-col h2 a{text-decoration:none}
+    .foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+    .foot-col li{font-size:.8rem}
+    .foot-col a,.foot-col span{display:inline-block;padding:4px 0;text-decoration:none}
+    .foot-col a:hover{text-decoration:underline;text-underline-offset:3px}
+    .foot-legal{margin-top:var(--spacing-xl);padding-top:var(--spacing-md);border-top:1px solid oklch(0.316 0.094 20 / .2);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.8rem}
+    .foot-legal ul{display:flex;flex-wrap:wrap;gap:4px 20px;list-style:none;margin:0;padding:0}
+    .foot-col li,.foot-brand a{font-weight:400}
+    @media (max-width:900px),(pointer:coarse){.foot-col a,.foot-col span,.foot-brand a{display:inline-flex;align-items:center;min-height:44px}.foot-col h2 a{min-height:44px}}
+    @media (max-width:1024px){.foot-grid{grid-template-columns:repeat(3,1fr)}.foot-brand{grid-column:1/-1}}
+    @media (max-width:600px){.foot-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+    /* ---- Variant A ---- */
+    .hero{position:relative;margin-top:var(--spacing-lg);min-height:490px;display:flex;align-items:center;color:var(--crema);background:var(--dark-roast)}
+    .hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 35%}
+    .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,oklch(0.267 0.027 63.8 / .82) 0%,oklch(0.267 0.027 63.8 / .55) 38%,oklch(0.267 0.027 63.8 / 0) 66%)}
+    .hero-copy{position:relative;z-index:2;padding:var(--spacing-xl) clamp(24px,5vw,72px);max-width:40rem}
+    .hero h1{font-size:var(--heading-xxl);line-height:1.05;color:var(--white);letter-spacing:-.005em}
+    .hero-note{margin-top:20px;color:var(--crema);font:500 1rem/1.4 var(--body-font-family);letter-spacing:.08em;text-transform:uppercase}
+    .hero .btn{margin-top:12px}
+
+    .offer{margin-top:var(--spacing-lg);background:var(--crema) url("assets/media/small.svg") left center/cover no-repeat;display:grid;grid-template-columns:minmax(0,31%) minmax(0,1fr) auto;align-items:center;gap:var(--spacing-md);padding:var(--spacing-lg) clamp(24px,4vw,56px);min-height:236px}
+    .offer-copy{grid-column:2;max-width:46rem}
+    .offer h2{font-size:var(--heading-lg);margin-bottom:12px}
+    .offer .btn{grid-column:3}
+
+    .locator{margin-top:var(--spacing-lg);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:320px}
+    .loc-form,.loc-card{min-width:0}
+    .loc-form{background:var(--terracotta);color:var(--dark-roast);padding:var(--spacing-xl) clamp(24px,5vw,72px);display:flex;flex-direction:column;justify-content:center;gap:16px}
+    .loc-form h2{font-size:var(--heading-lg);color:var(--dark-roast)}
+    .loc-form .label{color:var(--dark-roast)}
+    .loc-form form{display:flex;gap:8px;align-items:center;background:var(--crema);border-radius:var(--radius-pill);padding:4px 4px 4px 20px;max-width:26rem}
+    .loc-form input{flex:1;min-width:0;border:0;background:transparent;font:300 1rem/1.4 var(--body-font-family);letter-spacing:.04em;color:var(--dark-roast);padding:13px 0}
+    .loc-form input::placeholder{color:color-mix(in oklch,var(--dark-roast) 68%,var(--crema))}
+    .loc-form input:focus{outline:none}
+    .loc-form form:focus-within{outline:2px solid var(--dark-roast);outline-offset:2px}
+    .loc-form .btn{background:var(--dark-roast);color:var(--crema)}
+    .loc-card{background:var(--crema);display:flex;align-items:center}
+    .loc-inner{padding:64px 72px;display:flex;flex-direction:column;gap:4px}
+    @media (max-width:1024px){.loc-inner{padding:48px 24px}}
+    .loc-card h3{font-size:var(--heading-md);margin-bottom:4px}
+    .loc-card address{font-style:normal;margin-top:12px;line-height:1.7}
+    .loc-card a{text-underline-offset:3px}
+
+    .catalog{margin-top:var(--spacing-xl)}
+    .catalog h2{font-size:var(--heading-xl);letter-spacing:.02em;margin-bottom:var(--spacing-lg);padding-left:clamp(0px,4vw,80px)}
+    .tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--spacing-md);padding-inline:clamp(0px,4vw,80px)}
+    .tile{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;height:100%;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:24px 12px 20px;text-decoration:none;text-align:center;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+    .tile:hover{transform:translateY(-3px);box-shadow:0 14px 26px 0 oklch(0 0 0 / .16)}
+    .tile img{width:96px;height:96px;object-fit:contain}
+    .tile .slot{display:grid;place-items:center;width:100%;height:150px}
+    .tile img.ph{width:100%;height:150px}
+    .tile h3{font-size:var(--heading-md);line-height:1.2}
+
+    .subs{margin-top:var(--spacing-xl);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--spacing-lg)}
+    .pcard{display:flex;flex-direction:column;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-card);overflow:hidden}
+    .pcard img{width:100%;aspect-ratio:3/2;object-fit:cover}
+    .pc-body{display:flex;flex-direction:column;gap:12px;align-items:flex-start;padding:var(--spacing-md) var(--spacing-md) var(--spacing-lg);flex:1}
+    .pc-body h3{font-size:var(--heading-lg)}
+    .pc-body p{max-width:52ch}
+    .pc-body .btn{margin-top:auto}
+
+    .rewards{margin-top:var(--spacing-xl);background:var(--deep-teal) url("assets/media/reward-banner-v1.svg") left center/auto 100% no-repeat;color:var(--crema);display:grid;grid-template-columns:minmax(0,27%) minmax(0,1fr) auto;align-items:center;gap:var(--spacing-md);padding:var(--spacing-lg) clamp(24px,4vw,56px);min-height:180px}
+    .rewards-copy{grid-column:2;max-width:46rem}
+    .rewards h2{font-size:var(--heading-lg);margin-bottom:8px;color:var(--white)}
+    .rewards .btn{grid-column:3}
+
+    @media (max-width:1024px){
+      .tiles{grid-template-columns:repeat(3,1fr)}
+      .locator{grid-template-columns:minmax(0,1fr)}
+      .offer,.rewards{grid-template-columns:1fr}
+      .offer-copy,.rewards-copy,.offer .btn,.rewards .btn{grid-column:1}
+      .offer .btn,.rewards .btn{justify-self:start}
+      .offer{background-size:auto 96px;background-position:left top;padding-top:128px}
+      .rewards{background-size:auto 96px;background-position:-40px top;padding-top:120px}
+    }
+    @media (max-width:768px){
+      .hero{min-height:420px;align-items:flex-end}
+      .hero::before{background:linear-gradient(0deg,oklch(0.267 0.027 63.8 / .86) 0%,oklch(0.267 0.027 63.8 / .5) 55%,oklch(0.267 0.027 63.8 / 0) 100%)}
+      .hero-copy{padding:var(--spacing-lg) var(--spacing-md)}
+      .tiles{grid-template-columns:repeat(2,1fr);padding-inline:0}
+      .tiles li:last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 12px)}
+      .catalog h2{padding-left:0}
+      .hero > img{object-position:72% 20%}
+      .rewards{background-image:none;padding-top:var(--spacing-lg)}
+      .offer{background-size:auto 56px;padding-top:88px}
+      .subs{grid-template-columns:1fr}
+      .foot-legal{flex-direction:column}
+    }
+
+    /* ---- Variant C ---- */
+    .stage{position:relative;overflow:hidden;height:clamp(560px,80vh,760px);padding-top:48px;display:flex;align-items:flex-end;background:var(--dark-roast);color:var(--crema)}
+    .stage img{position:absolute;left:0;top:0;width:100%;height:calc(100% + 12vh);object-fit:cover;object-position:60% 30%;animation:fadein 900ms var(--ease) both}
+    .stage::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,oklch(0.267 0.027 63.8 / .88) 0%,oklch(0.267 0.027 63.8 / .55) 34%,oklch(0.267 0.027 63.8 / 0) 66%)}
+    .stage .copy{position:relative;z-index:2;padding:0 40px 56px;max-width:calc(var(--max-width) + 80px);margin-inline:auto;width:100%}
+    .stage .copy > div{max-width:36rem}
+    .stage h1{font-size:var(--heading-xxl);line-height:1.05;color:var(--white);letter-spacing:-.005em}
+    .stage .note{margin-top:16px;color:var(--crema);font:500 1rem/1.4 var(--body-font-family);letter-spacing:.08em;text-transform:uppercase}
+    .stage .btn{margin-top:12px}
+    @keyframes fadein{from{opacity:.4}to{opacity:1}}
+
+    .notes{position:relative;margin-top:var(--spacing-xl);background:var(--crema);padding:128px 24px 80px;text-align:center;isolation:isolate}
+    .notes::before{content:"";position:absolute;left:0;right:0;top:0;height:150px;z-index:-1;background:url("assets/media/small.svg") center top/cover no-repeat;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+    .catalog h2{padding-left:0}
+    .tiles{padding-inline:0}
+    .link-more{font:500 1rem/1.4 var(--body-font-family);letter-spacing:.06em;color:var(--deep-teal);text-decoration:none;padding:12px 0;display:inline-block;background:linear-gradient(currentColor,currentColor) left bottom/100% 1px no-repeat}
+    .link-more:hover{background-size:100% 2px}
+    .notes .col{max-width:60ch;margin-inline:auto;display:grid;gap:var(--spacing-lg);justify-items:center}
+    .notes h2{font-size:var(--heading-xl);line-height:1.12}
+    .notes .lede{font-family:var(--heading-font-family);font-size:var(--heading-md);line-height:1.4;letter-spacing:.01em}
+    .notes .tail{font-size:1.0625rem}
+
+    .module{margin-top:var(--spacing-xl);max-width:960px;margin-inline:auto;display:grid;gap:var(--spacing-lg)}
+    .module .main{display:grid;grid-template-columns:1fr 1fr;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-card);overflow:hidden}
+    .module .main img{width:100%;height:100%;min-height:340px;object-fit:cover}
+    .module .main .pc-body{justify-content:center;padding:var(--spacing-lg)}
+    .module .cap{display:grid;grid-template-columns:auto 1fr auto;gap:var(--spacing-md);align-items:center}
+    .module .cap img{width:168px;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius)}
+    .module .cap h3{font-size:var(--heading-md)}
+    .zoom{overflow:hidden;border-radius:var(--radius)}
+    .zoom img{transition:transform 900ms var(--ease)}
+    .zoom:hover img{transform:scale(1.02)}
+    .draw{background:linear-gradient(currentColor,currentColor) left bottom/0 1px no-repeat;transition:background-size .6s var(--ease)}
+    .draw:hover{background-size:100% 1px;text-decoration:none!important}
+    @media (max-width:1024px){
+      .stage{height:70vh;min-height:520px}
+      .stage .copy{padding:0 var(--gutter) 40px}
+      .notes{padding:112px 16px 56px}
+      .module .main{grid-template-columns:1fr}
+      .module .main img{min-height:240px}
+      .module .cap{grid-template-columns:1fr;justify-items:start}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{animation:none!important;transition:none!important}
+      .stage img{transform:none!important}
+    }
+
+    .foot-col a{background:linear-gradient(currentColor,currentColor) left bottom/0 1px no-repeat;transition:background-size .6s var(--ease)}
+    .foot-col a:hover{background-size:100% 1px;text-decoration:none}
+
+  </style>
+</head>
+<body data-template="landing">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="announce" role="region" aria-label="Promotion" data-section="announcement-bar" data-intent="promote shipping" data-layout="full-bleed">
+    <div class="wrap"><p>Free shipping from $35 &amp; free coffee samples with code FRESCOPA.</p><a href="https://frescopa.coffee/subscription">Shop Now</a></div>
+  </div>
+  <header class="site-head" data-section="header" data-intent="navigate" data-layout="contained" data-nav-collapse="hamburger">
+    <div class="wrap">
+      <a class="brand" href="https://frescopa.coffee/" aria-label="Fr&#233;scopa home"><img src="assets/logo.svg" alt="Fr&#233;scopa" width="125" height="34"></a>
+      <input type="checkbox" id="ds-nav-toggle" class="ds-nav-toggle" aria-hidden="true" tabindex="-1">
+      <label class="ds-nav-burger" for="ds-nav-toggle" role="button" tabindex="0" aria-controls="site-nav" aria-expanded="false"><span class="ds-nav-burger-icon" aria-hidden="true"></span><span>Menu</span></label>
+      <nav class="ds-nav" id="site-nav" aria-label="Primary">
+        <ul><li><a href="https://frescopa.coffee/coffee">Coffee</a></li><li><a href="https://frescopa.coffee/tea">Tea</a></li><li><a href="https://frescopa.coffee/machines">Machines</a></li><li><a href="https://frescopa.coffee/accessories">Accessories</a></li><li><a href="https://frescopa.coffee/locations">Locations</a></li><li><a href="https://frescopa.coffee/sustainability">Sustainability</a></li></ul>
+        <div class="tools">
+          <button type="button" aria-label="Search"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
+          <button type="button" aria-label="Cart"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></button>
+          <a href="https://frescopa.coffee/customer/account" aria-label="My account"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg></a>
+          <a class="signin" href="https://frescopa.coffee/login?redirect=%2F">Sign in</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="stage" data-section="hero" data-intent="primary action" data-layout="full-bleed" data-media="image">
+      <img class="" src="assets/media/hero-1200.webp" srcset="assets/media/hero-1200.webp 1200w, assets/media/m-18d60179b76dac9356845e1f7c7a9355d2f6640d0.webp 2000w" sizes="100vw" alt="Friends Enjoying Coffee at a Cozy Coffee Shop" width="2000" height="1375" fetchpriority="high">
+      <div class="copy"><div>
+        <h1>Your perfect coffee is four questions away.</h1>
+        <p class="note">MyBarista Coffee Quiz</p>
+        <a class="btn btn--teal" href="https://frescopa.coffee/quiz">Take our Coffee Quiz</a>
+      </div></div>
+    </section>
+    <section class="notes" data-section="sensory-notes" data-intent="value proposition" data-layout="stack" data-items="3">
+      <div class="col">
+        <h2>Fall in love with rich aromas and bold flavors&#8288;&#8212;every single day</h2>
+        <p class="lede">With a MyBarista subscription, savor hand-selected coffees&#8288;&#8212;each chosen for their unique taste and aroma&#8288;&#8212;delivered right to your door every month. Experience new flavors, curated for your lifestyle.</p>
+        <p class="tail">Experience the bright, citrusy notes and smooth finish of House Blend Dark Roast. A perfect start to any day.</p>
+        <a class="btn btn--brick" href="https://frescopa.coffee/subscription">Shop Now</a>
+      </div>
+    </section>
+    <section class="locator panel" data-section="store-locator" data-intent="find a store" data-layout="split-media" data-interactive="form">
+      <div class="loc-form">
+        <h2>Try a new roast at a Fr&#233;scopa near you!</h2>
+        <label class="label" for="postcode">Find another location now</label>
+        <form action="https://frescopa.coffee/locations" method="get" onsubmit="return false"><input id="postcode" type="text" name="q" placeholder="ZIP code" autocomplete="postal-code"><button class="btn" type="submit">Search</button></form>
+      </div>
+      <div class="loc-card"><div class="loc-inner"><h3>Fr&#233;scopa Coffee &amp; Tea</h3><p>Smiles one cup at a time.</p><address>3900 Adobe Way, Lehi, UT 84043<br><a class="draw" href="mailto:info@frescopa.coffee">info@frescopa.coffee</a><br>(385) 345-0000</address></div></div>
+    </section>
+    <section class="catalog wrap" data-section="category-tiles" data-intent="route to catalogue" data-layout="grid" data-items="5">
+      <h2>Shop all Fr&#233;scopa products.</h2>
+      <ul class="tiles"><li><a class="tile" href="https://frescopa.coffee/machines"><img src="assets/media/m-18d90d06cb150321e2b7de19e82a9818c57b1eaaa.webp" alt="" width="120" height="120" loading="lazy"><h3>Coffee Machines</h3></a></li><li><a class="tile" href="https://frescopa.coffee/coffee"><img src="assets/media/m-11f2acc820929d908638cf3f7f133c5ac9792a560.webp" alt="" width="120" height="120" loading="lazy"><h3>Bagged Coffee</h3></a></li><li><a class="tile" href="https://frescopa.coffee/coffee"><img src="assets/media/m-1611a15fc05b259399fa254f961f08b9f7804cd23.webp" alt="" width="120" height="120" loading="lazy"><h3>Coffee Pods</h3></a></li><li><a class="tile" href="https://frescopa.coffee/tea"><img src="assets/media/m-1b4036e97de71a31f998526cf47deb2999dbaee87.webp" alt="" width="120" height="120" loading="lazy"><h3>Bundles</h3></a></li><li><a class="tile" href="https://frescopa.coffee/accessories"><img src="assets/media/m-1ad953e2b8b4f9e3e3f11e8fb8cedeca7a5ab2343.webp" alt="" width="120" height="120" loading="lazy"><h3>Accessories</h3></a></li></ul>
+    </section>
+    <section class="module wrap" data-section="subscription" data-intent="drive action" data-layout="stack" data-items="2">
+      <article class="main"><img src="assets/media/m-1b4f681b77984b7dd74de2783c29f25f3d8a5633d.webp" alt="A person sitting on a hilltop above the clouds, holding a small cup" loading="lazy"><div class="pc-body"><h3>Coffee Made Personal</h3><p>Enjoy coffee crafted for you, delivered monthly. Hear from satisfied subscribers who love MyBarista's unique service. Exclusive deal: First month half-price. Dive into the ease of personalized coffee with MyBarista now.</p><a class="btn btn--teal" href="https://frescopa.coffee/subscription">Subscribe</a></div></article>
+      <div class="cap"><div class="zoom"><img src="assets/media/Frescopa-coffee-landscape-113.webp" alt="A cup of coffee beside a sack of beans on a table, with the sun rising over green hills" loading="lazy"></div><h3>Elevate Your Coffee Game</h3><a class="link-more" href="https://frescopa.coffee/coffee">Learn More &#8594;</a></div>
+    </section>
+    <section class="rewards panel" data-section="rewards" data-intent="drive action" data-layout="full-bleed">
+      <div class="rewards-copy"><h2>Rewards unclaimed is a Gift missed!</h2><p>Surprise your loved ones with the ultimate coffee experience.</p></div>
+      <a class="btn btn--brick" href="https://frescopa.coffee/signup">Claim Rewards</a>
+    </section>
+  </main>
+  <footer class="site-foot" data-section="footer" data-intent="navigate" data-layout="grid">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand"><img src="assets/logo.svg" alt="Fr&#233;scopa" width="125" height="34"><p class="name">Fr&#233;scopa Coffee &amp; Tea</p><p>Smiles one cup at a time.</p><p style="margin-top:12px">3900 Adobe Way, Lehi, UT 84043<br><a href="mailto:info@frescopa.coffee">info@frescopa.coffee</a><br>(385) 345-0000</p></div>
+        <nav class="foot-nav" aria-label="Footer"><div class="foot-col"><h2><a href="https://frescopa.coffee/machines">Machines</a></h2><ul><li><a href="https://frescopa.coffee/machines">Espresso Machines</a></li><li><a href="https://frescopa.coffee/machines">Fr&#233;scopa Major</a></li><li><a href="https://frescopa.coffee/machines">Fr&#233;scopa Minor</a></li><li><a href="https://frescopa.coffee/machines">Autodrip Coffee Makers</a></li><li><a href="https://frescopa.coffee/machines">Coffee Grinders</a></li></ul></div><div class="foot-col"><h2><a href="https://frescopa.coffee/coffee">Coffee</a></h2><ul><li><a href="https://frescopa.coffee/coffee">Bagged Coffee</a></li><li><a href="https://frescopa.coffee/coffee">Coffee Pods</a></li><li><a href="https://frescopa.coffee/locations">Find a Retailer</a></li><li><span>Fr&#233;scopa Affiliate</span></li></ul></div><div class="foot-col"><h2><a href="https://frescopa.coffee/tea">Tea</a></h2><ul><li><a href="https://frescopa.coffee/tea">Loose Leaf</a></li><li><a href="https://frescopa.coffee/tea">Pods</a></li><li><a href="https://frescopa.coffee/tea">Bundles</a></li></ul></div><div class="foot-col"><h2><a href="https://frescopa.coffee/accessories">Accessories</a></h2><ul><li><a href="https://frescopa.coffee/accessories">Replacement Parts</a></li><li><a href="https://frescopa.coffee/accessories">Cups &amp; Mugs</a></li><li><a href="https://frescopa.coffee/accessories">Travel Mugs</a></li><li><a href="https://frescopa.coffee/accessories">Kettles &amp; Carafes</a></li></ul></div><div class="foot-col"><h2><a href="https://frescopa.coffee/about-us">About Fr&#233;scopa</a></h2><ul><li><a href="https://frescopa.coffee/about-us">About Us</a></li><li><span>Support</span></li><li><a href="https://frescopa.coffee/locations">Find a Retailer</a></li><li><a href="https://frescopa.coffee/business.html">Fr&#233;scopa Enterprise</a></li><li><a href="https://frescopa.coffee/sustainability">Sustainability</a></li><li><a href="https://frescopa.coffee/blog">Blog</a></li></ul></div></nav>
+      </div>
+      <div class="foot-legal"><p>&#169; Fr&#233;scopa, Inc. All rights reserved.</p><ul><li>Terms of Use</li><li>Privacy Policy</li><li>Cookie Notice</li><li>Diversity &amp; Inclusion</li><li>Social Responsibility</li><li>Site Map</li></ul></div>
+    </div>
+  </footer>
+  <script>
+  (() => {
+    const t = document.getElementById('ds-nav-toggle');
+    const b = document.querySelector('.ds-nav-burger');
+    if (!t || !b) return;
+    const sync = () => b.setAttribute('aria-expanded', t.checked);
+    t.addEventListener('change', sync); sync();
+    b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.checked = !t.checked; sync(); } });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && t.checked) { t.checked = false; sync(); b.focus(); } });
+  })();
+  </script>
+  
+</body>
+</html>

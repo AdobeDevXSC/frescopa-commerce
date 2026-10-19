@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Fr&#233;scopa redesign explorations</title>
+  <link rel="icon" href="assets/favicon.ico">
+  <style>
+    @font-face{font-family:'Bodoni Moda';font-weight:400 900;font-display:swap;src:url(assets/fonts/bodoni-normal.woff2) format('woff2')}
+    @font-face{font-family:'Hanken Grotesk';font-weight:300 700;font-display:swap;src:url(assets/fonts/hanken-normal.woff2) format('woff2')}
+    :root{--roast:oklch(0.20 0.03 55);--crema:oklch(0.94 0.025 78);--amber:oklch(0.80 0.15 75);--ember:oklch(0.45 0.15 27);--ink:oklch(0.28 0.08 20)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--crema);color:var(--ink);font:400 1.0625rem/1.6 'Hanken Grotesk',system-ui,sans-serif}
+    header{background:var(--roast);color:var(--crema);padding:64px 0 56px}
+    header>div,main,footer{width:min(1240px,100% - 80px);margin-inline:auto}
+    h1,h2,h3{font-family:'Bodoni Moda',Georgia,serif;font-weight:500;margin:0;text-wrap:balance}
+    h1{font-size:clamp(2.6rem,1rem + 5vw,5.5rem);line-height:.98;letter-spacing:-.02em}
+    header p{max-width:62ch;margin:20px 0 0;color:oklch(0.88 0.03 78)}
+    header .tag{font:600 .8rem/1.4 'Hanken Grotesk',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
+    main{padding:56px 0 96px}
+    section+section{margin-top:72px}
+    h2{font-size:2rem;margin-bottom:24px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px}
+    article{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 10px 24px oklch(0.2 0.03 55 / .12);display:flex;flex-direction:column}
+    .thumb{display:block;aspect-ratio:16/10;background:var(--roast);overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+    article:hover .thumb img{transform:scale(1.03)}
+    .body{padding:24px 24px 28px;display:flex;flex-direction:column;gap:10px;flex:1}
+    h3{font-size:1.5rem}
+    .body p{margin:0;flex:1}
+    .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .links a{display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:999px;font:600 .8rem/1 'Hanken Grotesk',sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+    .open{background:var(--roast);color:var(--crema)}.open:hover{background:var(--ember)}
+    .alt{border:2px solid var(--roast);color:var(--roast)}.alt:hover{background:var(--roast);color:var(--crema)}
+    :focus-visible{outline:3px solid var(--roast);outline-offset:3px;box-shadow:0 0 0 6px var(--crema);border-radius:999px}
+    footer{padding:0 0 64px;font-size:.9rem;color:oklch(0.4 0.05 30)}
+    @media (max-width:640px){header>div,main,footer{width:calc(100% - 32px)}header{padding:40px 0}main{padding:40px 0 64px}}
+  </style>
+</head>
+<body>
+  <header><div>
+    <p class="tag">Internal review</p>
+    <h1>Fr&#233;scopa redesign explorations</h1>
+    <p>Five homepage prototypes built from the live site's own copy and product photography. Two are bold rebrand concepts; three are brand-faithful uplifts. Pages are static HTML for review only, and every link goes to the live frescopa.coffee. Best viewed on a desktop at 1440px; D1 and C add scroll motion on large screens.</p>
+  </div></header>
+  <main><section><h2>Rebrand concepts</h2><div class="grid"><article><a class="thumb" href="d1-ritual.html" tabindex="-1" aria-hidden="true"><img src="assets/thumbs/d1-ritual.jpg" alt="" width="1440" height="900" loading="lazy"></a><div class="body"><h3>D1 &#183; The Ritual</h3><p>Immersive scroll story from sunrise to cup. Pinned scenes on large screens, a complete static layout everywhere else.</p><div class="links"><a class="open" href="d1-ritual.html">Open prototype</a><a class="alt" href="d1-ritual-static.html">Static layout</a></div></div></article><article><a class="thumb" href="d2-poster.html" tabindex="-1" aria-hidden="true"><img src="assets/thumbs/d2-poster.jpg" alt="" width="1440" height="900" loading="lazy"></a><div class="body"><h3>D2 &#183; Roastery Poster</h3><p>Screen-printed poster energy: viewport-wide condensed headlines, colour-block bento, duotone caf&#233; photo, tasting-note ticker.</p><div class="links"><a class="open" href="d2-poster.html">Open prototype</a></div></div></article></div></section><section><h2>Brand-faithful uplift</h2><div class="grid"><article><a class="thumb" href="a-faithful.html" tabindex="-1" aria-hidden="true"><img src="assets/thumbs/a-faithful.jpg" alt="" width="1440" height="900" loading="lazy"></a><div class="body"><h3>A &#183; Faithful + fixes</h3><p>The live site's structure with the obvious fixes applied: one subscription module, working locator, product-photo tiles, legible hero.</p><div class="links"><a class="open" href="a-faithful.html">Open prototype</a></div></div></article><article><a class="thumb" href="b-ladder.html" tabindex="-1" aria-hidden="true"><img src="assets/thumbs/b-ladder.jpg" alt="" width="1440" height="900" loading="lazy"></a><div class="body"><h3>B &#183; Colour ladder</h3><p>The reserved deep shades become section grounds, with a split hero and reordered sections.</p><div class="links"><a class="open" href="b-ladder.html">Open prototype</a></div></div></article><article><a class="thumb" href="c-editorial.html" tabindex="-1" aria-hidden="true"><img src="assets/thumbs/c-editorial.jpg" alt="" width="1440" height="900" loading="lazy"></a><div class="body"><h3>C &#183; Editorial motion</h3><p>Edge-to-edge hero and a reading column of captured tasting-note sentences, with slow scroll reveals.</p><div class="links"><a class="open" href="c-editorial.html">Open prototype</a><a class="alt" href="c-editorial-static.html">Static layout</a></div></div></article></div></section></main>
+  <footer><p>Prototype pages are not indexed and are not the production site. Source and validation notes live with the redesign project.</p></footer>
+</body>
+</html>
