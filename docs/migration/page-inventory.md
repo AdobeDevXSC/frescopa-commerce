@@ -2,7 +2,7 @@
 
 Built on 2026-10-22 from `https://frescopa.coffee/sitemap.xml` (116 URLs) and `sitemap-content.xml` (117 URLs; the one extra is `/rise-and-shine`), plus each page's `.plain.html`. I checked rendered pages in a browser to see runtime product grids, forms and link targets. This replaces the "initial" table in `content-inventory.md`; status codes there are from 2026-10-19.
 
-**Status: page list confirmed on 2026-10-22.** Decisions are recorded in [Decisions](#decisions); one item is still open.
+**Status: page list confirmed on 2026-10-22.** Decisions are recorded in [Decisions](#decisions).
 
 ## Summary
 
@@ -12,7 +12,6 @@ Built on 2026-10-22 from `https://frescopa.coffee/sitemap.xml` (116 URLs) and `s
 | Migrate as fragment | 2 | `/nav`, `/footer` (Phase 1) |
 | Link out | 3 types | Product detail pages, quiz, account/cart/checkout/login |
 | Skip | 104 sitemap URLs | Content fragments (27), other locales (57), `/en/*` duplicates and drafts (13), experiments and variations (3), `/rise-and-shine`, `/search`, `/locations/locationlist`, the enquiry form definition |
-| Still open | 1 | The "The Magic of Espresso" article fragment on `/coffee` (D6) |
 
 Template types: **home**, **category landing** (teaser + commerce product grid), **content** (default content and/or teaser + cards), **locations**, **form/interactive**, **commerce**.
 
@@ -21,7 +20,7 @@ Template types: **home**, **category landing** (teaser + commerce product grid),
 | Path | Template | Source blocks (`.plain.html`) | Decision and notes | Phase |
 |---|---|---|---|---|
 | `/` | home | `teaser` (dark right, yellow), `offer`, `store-locator`, `cards` ×3, `reward` (light left), `hero` ×2, `section-metadata` ×3 | Migrate as the D1 homepage, per `homepage-spec.md`. `offer`, the Google Maps embed and the trailing `hero` image stack are not migrated (see `content-inventory.md`). Live head has `experiment=exp-20250911-1` with split 0 and a challenger path that returns 404; it is not migrated. | 2 |
-| `/coffee` | category landing | `teaser` (left, red, half-height; image "Three cups"; label "There's nothing quite like"; h3 "Frescopa Coffee"), h3 "Bagged Coffee" + `product-list-page-custom` (category 27), `dm-scene7-template` (Scene7 "TimeSensitiveOffer" image), h3 "Coffee Pods" + `product-list-page-custom` (category 23), `article` (fragment "The Magic of Espresso"), empty `store-locator` | Migrate teaser and section headings. Product grids are commerce-driven and render at runtime (6 products: `hbdr212`, `hbex213`, `hbmr211`, `pod311`, `pod341`, `pod351`), so link out. Skip the Scene7 offer image and the empty locator (D6). The article fragment is still open (D6). | 3 |
+| `/coffee` | category landing | `teaser` (left, red, half-height; image "Three cups"; label "There's nothing quite like"; h3 "Frescopa Coffee"), h3 "Bagged Coffee" + `product-list-page-custom` (category 27), `dm-scene7-template` (Scene7 "TimeSensitiveOffer" image), h3 "Coffee Pods" + `product-list-page-custom` (category 23), `article` (fragment "The Magic of Espresso"), empty `store-locator` | Migrate teaser and section headings. Product grids are commerce-driven and render at runtime (6 products: `hbdr212`, `hbex213`, `hbmr211`, `pod311`, `pod341`, `pod351`), so link out. Skip the Scene7 offer image and the empty locator (D6). Keep the article fragment as authored text (D6). | 3 |
 | `/machines` | category landing | `teaser` (blue, half-height; h3 "Frescopa Coffee Machines"), `product-list-page-custom` (category 29), h2 "Enquiry form" + 2 paragraphs + `embed-adaptive-form` (`/content/forms/af/frescopa/enquire`), `sticky-cta` "Register for Webinar" → `/event-registration` | Migrate teaser and enquiry intro. Product grid links out (3 products: `csm5125`, `csm5131`, `csm5148`). Skip the AEM adaptive form (D5). Skip `sticky-cta`: its target returns 404. | 3 |
 | `/accessories` | category landing | `teaser` (left, black, half-height; label "The perfect combination of"; h3 "Frescopa Accessories"; no image), `product-list-page-custom` (category 28) | Migrate teaser. Product grid links out (5 products: `acc341`, `acc511`, `acc558`, `acc563`, `itt743`). | 3 |
 | `/tea` | category landing | `/tea` returns **404** on the live site (page and `.plain.html`), but nav links to it. Content exists at `/en/tea`: `teaser` (left, yellow, half-height; label "There's nothing quite like"; h3 "Frescopa Tea"), `product-list-page-custom` (category 30) | Migrate the `/en/tea` content to `/tea` (D1). Product grid links out (3 products: `tea103`, `tea105`, `tea106`). | 3 |
@@ -87,7 +86,7 @@ Confirmed on 2026-10-22.
 | D3 | Dead targets | Fix where a working equivalent exists: `/business.html` → `/business`, "Subscribe to MyBarista" `#` → `/subscription`. Keep the rest as absolute live URLs (`/signup`, `/blog`, `/login`, `/customer/account`) and list them as broken in `handover.md`. |
 | D4 | `/locations` | Show only the ZIP form and the static address card from the homepage. No dynamic list, no map. |
 | D5 | Forms | Skip the AEM adaptive forms on `/machines` (enquiry) and `/contact-us`, and keep their intro copy. List the forms as follow-up work in `handover.md`. |
-| D6 | `/coffee` extras | Skip the Scene7 "TimeSensitiveOffer" image and the empty store locator. **Still open:** migrate or skip the "The Magic of Espresso" article fragment. |
+| D6 | `/coffee` extras | Skip the Scene7 "TimeSensitiveOffer" image and the empty store locator. Keep the "The Magic of Espresso" article teaser as authored text, verbatim from the rendered live page: h4 "The Magic of Espresso"; paragraph "Espresso is the foundation of many popular coffee drinks! This article explores the art of making the perfect espresso shot, from selecting the right beans to mastering the extraction process." (no link on the live site). |
 | D7 | `/sustainability` video | Skip the Dynamic Media video. |
 | D8 | Announcement bar | Use the `content-inventory.md` wording ("Free shipping from $35 & free coffee samples with code FRESCOPA.") with "Shop Now" → `/subscription`. |
 | D9 | Locales | `/es`, `/fr`, `/jp` are out of scope. |
