@@ -1,0 +1,119 @@
+/* ZIP search on the left, address card with an arch top on the right; no map */
+.store-locator {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+}
+
+.store-locator h1,
+.store-locator h2 {
+  margin: 0 0 28px;
+  font-size: var(--heading-font-size-xl);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.store-locator .store-locator-label {
+  display: block;
+  margin-bottom: 12px;
+  font: 600 var(--body-font-size-xs) / 1.4 var(--body-font-family);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* the field: a roast pill holding the input and the amber button */
+.store-locator .store-locator-field {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 28rem;
+  border-radius: var(--radius-pill);
+  padding: 4px 4px 4px 22px;
+  background-color: var(--roast);
+  color: var(--crema);
+}
+
+.store-locator .store-locator-field:focus-within {
+  outline: 3px solid var(--roast);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--crema);
+}
+
+.store-locator input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 13px 0;
+  background: transparent;
+  color: var(--crema);
+  font: 400 var(--body-font-size-m) / 1.4 var(--body-font-family);
+  caret-color: var(--amber);
+}
+
+.store-locator input::placeholder {
+  color: color-mix(in oklch, var(--crema) 70%, var(--roast));
+  opacity: 1;
+}
+
+.store-locator input:focus,
+.store-locator input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.store-locator button.button {
+  flex-shrink: 0;
+  border-color: var(--amber);
+  background-color: var(--amber);
+  color: var(--roast);
+}
+
+.store-locator button.button:hover {
+  border-color: var(--amber-hover);
+  background-color: var(--amber-hover);
+}
+
+.store-locator button.button:focus-visible {
+  outline-color: var(--crema);
+  box-shadow: 0 0 0 6px var(--roast);
+}
+
+/* address card */
+.store-locator .store-locator-card {
+  box-sizing: border-box;
+  border-radius: var(--radius-arch);
+  padding: 72px 36px 40px;
+  background-color: var(--crema);
+  color: var(--ink);
+  text-align: center;
+}
+
+.store-locator .store-locator-card h3,
+.store-locator .store-locator-card h4 {
+  margin: 0 0 6px;
+  font-size: var(--heading-font-size-m);
+  line-height: 1.6;
+}
+
+.store-locator .store-locator-card p {
+  margin: 0;
+}
+
+.store-locator .store-locator-card address {
+  font-style: normal;
+  line-height: 1.7;
+}
+
+.store-locator .store-locator-card a[href^='mailto'] {
+  display: inline-block;
+  padding: 13px 0;
+  color: var(--ink);
+}
+
+@media (width >= 900px) {
+  .store-locator {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+}

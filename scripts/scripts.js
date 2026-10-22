@@ -10,6 +10,9 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toCamelCase,
+  toClassName,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -143,6 +146,26 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies section metadata tables that reach the browser unprocessed (local
+ * `.plain.html` previews). The publishing pipeline normally converts them to
+ * section classes server-side, in which case there is nothing to do.
+ * @param {Element} main The container element
+ */
+function applySectionMetadata(main) {
+  main.querySelectorAll(':scope > div > div.section-metadata').forEach((meta) => {
+    const section = meta.parentElement;
+    Object.entries(readBlockConfig(meta)).forEach(([key, value]) => {
+      if (key === 'style') {
+        value.split(',').map(toClassName).filter(Boolean).forEach((c) => section.classList.add(c));
+      } else {
+        section.dataset[toCamelCase(key)] = value;
+      }
+    });
+    meta.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -150,6 +173,7 @@ function decorateButtons(main) {
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
+  applySectionMetadata(main);
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);

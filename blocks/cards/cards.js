@@ -1,6 +1,8 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import blendOpaqueImages from '../../scripts/blend.js';
 
 export default function decorate(block) {
+  const arch = block.classList.contains('arch');
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
@@ -12,6 +14,14 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  if (arch) {
+    // arch cards keep the delivered (already optimized) pictures; decorative icons have no alt
+    ul.querySelectorAll('.cards-card-image img').forEach((img) => {
+      if (!img.alt) img.closest('.cards-card-image').classList.add('cards-card-icon');
+    });
+    blendOpaqueImages(ul.querySelectorAll('.cards-card-image img'));
+  } else {
+    ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  }
   block.replaceChildren(ul);
 }

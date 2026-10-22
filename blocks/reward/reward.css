@@ -1,0 +1,64 @@
+/* teal panel on the roast ground; the captured ribbon art is a left-anchored background */
+main .section.roast:has(.reward) {
+  padding-top: 0;
+}
+
+.reward .reward-panel {
+  --text-color: var(--crema);
+  --focus-ring: var(--crema);
+  --focus-halo: var(--roast);
+  --button-bg: var(--crema);
+  --button-fg: var(--roast);
+  --button-hover-bg: var(--white);
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  min-height: 200px;
+  border-radius: var(--radius);
+  padding: 48px clamp(24px, 4vw, 56px);
+  background-color: var(--teal);
+  color: var(--crema);
+}
+
+.reward .reward-copy {
+  max-width: 46rem;
+}
+
+.reward h1,
+.reward h2,
+.reward h3 {
+  margin: 0 0 12px;
+  color: var(--white);
+  font-size: var(--heading-font-size-l);
+  line-height: 1.6;
+}
+
+.reward p {
+  margin: 0;
+}
+
+.reward .button-wrapper {
+  justify-self: start;
+  margin: 0;
+}
+
+@media (width > 1024px) {
+  .reward .reward-panel {
+    grid-template-columns: minmax(0, 32%) minmax(0, 1fr) auto;
+    background-image: url('reward-banner.svg');
+    background-position: left center;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+  }
+
+  .reward .reward-copy {
+    grid-column: 2;
+  }
+
+  .reward .button-wrapper {
+    grid-column: 3;
+  }
+}

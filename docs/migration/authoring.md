@@ -23,6 +23,51 @@ The logo is reversed for the dark ground with a CSS filter; no separate asset is
 
 Set with section metadata `Style`: `roast`, `amber`, `crema`, `coral`, `teal`. Each ground sets text, link, button and focus-ring colours, and gives the section 128px vertical padding (64px at 900px and below). Sections without a style keep the default crema page ground.
 
+## Homepage blocks
+
+The homepage is seven sections, each with its own ground (section metadata `Style`), in this order:
+
+| # | Section `Style` | Content |
+|---|---|---|
+| 1 | `roast` | **Hero (arch)** |
+| 2 | `amber` | **Story (dawn)** |
+| 3 | `crema` | **Story (tasting)** |
+| 4 | `coral` | **Story (personal)** |
+| 5 | `roast` | Heading "Shop all Fréscopa products." (default content), then **Cards (arch)** |
+| 6 | `amber` | **Store Locator** |
+| 7 | `roast` | **Reward** |
+
+### Hero (arch)
+| Row | Content |
+|---|---|
+| 1 | The photo (shown in the arch frame; loaded first, so keep it one image). |
+| 2 | The page's only **h1**. Put the highlighted phrase in *italics* (it renders upright, in amber). Then a short label paragraph, then the CTA as a **bold** link. |
+
+The amber circle and floating coffee beans are decoration added by the block; there is nothing to author for them.
+
+### Story (dawn / tasting / personal)
+| Row | Content |
+|---|---|
+| 1 | The image: one photo for `dawn` (shown in the circle) and `tasting` (the bag); two for `personal`, pod first, then mug. |
+| 2 | **h2**, one paragraph, then the CTA: a **bold** link (roast pill) or a ***bold italic*** link (ember pill, used in `tasting`). |
+
+Product photos with an opaque white background are blended into the ground automatically; transparent cut-outs are left as they are. On large screens with motion allowed, each scene pins and animates as you scroll; everywhere else (and for keyboard users) the finished layout shows.
+
+### Cards (arch)
+One row per card: the image in the first cell, then an **h3** containing the link in the second cell. The whole card is clickable. Use an icon instead of a photo when no product photo exists (Bundles).
+
+### Store Locator
+One row, two cells:
+| Cell | Content |
+|---|---|
+| 1 | **h2**, the field label paragraph, the field placeholder paragraph, then a link: its text is the button label and its URL is the page the search goes to (the query is sent as `?q=`). |
+| 2 | The address card: **h3** (name), tagline paragraph, then one paragraph with address, email link and phone separated by line breaks. |
+
+No map is shown.
+
+### Reward
+One row: **h2**, one paragraph, then the CTA as a **bold** link. The teal panel and ribbon artwork come from the block.
+
 ## Buttons
 
 A link alone in its paragraph becomes a button when emphasised:

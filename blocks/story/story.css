@@ -1,0 +1,319 @@
+/* ---------- static layout (also the reduced-motion, small-screen and no-JS view) ---------- */
+.story .story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+}
+
+.story h1,
+.story h2,
+.story h3 {
+  margin: 0;
+}
+
+.story .story-text h1,
+.story .story-text h2,
+.story .story-text h3 {
+  font-size: var(--heading-font-size-xl);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.story .story-text p {
+  margin: 0;
+}
+
+.story .story-text .button-wrapper {
+  margin: 0;
+}
+
+.story img {
+  display: block;
+  max-width: 100%;
+}
+
+.story img.blend-multiply {
+  mix-blend-mode: multiply;
+}
+
+.story .story-bean {
+  position: absolute;
+  width: 30px;
+  color: var(--ember);
+  pointer-events: none;
+}
+
+.story .story-bean svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* dawn: the sun (photo in a circle) beside the copy */
+.story.dawn .story-sun {
+  justify-self: center;
+  width: min(80%, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 40px 80px oklch(0% 0 0deg / 25%);
+}
+
+.story.dawn .story-sun picture,
+.story.dawn .story-sun img {
+  width: 100%;
+  height: 100%;
+}
+
+.story.dawn .story-sun img {
+  object-fit: cover;
+}
+
+.story.dawn .story-text h2 {
+  margin-bottom: 24px;
+}
+
+.story.dawn .story-text p:not(.button-wrapper) {
+  max-width: 46ch;
+  margin-bottom: 28px;
+  font-size: var(--body-font-size-l);
+}
+
+/* tasting and personal: the copy comes first (left on wide screens) */
+.story.tasting .story-text,
+.story.personal .story-text {
+  order: -1;
+}
+
+/* tasting: copy beside the bag, ember italic sentence */
+.story.tasting .story-text h2 {
+  margin-bottom: 20px;
+}
+
+.story.tasting .story-text p:not(.button-wrapper) {
+  max-width: 26ch;
+  margin-bottom: 28px;
+  color: var(--ember);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
+  font-style: italic;
+  font-variation-settings: 'opsz' 48;
+  line-height: 1.25;
+}
+
+.story.tasting .story-bag {
+  position: relative;
+  justify-self: center;
+  width: min(80%, 380px);
+}
+
+.story.tasting .story-bag img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transform-origin: 50% 90%;
+}
+
+.story.tasting .story-bean-1 {
+  --dy: -22;
+  --rot: 80;
+
+  top: 18%;
+  left: -4%;
+  width: 34px;
+  transform: rotate(30deg);
+}
+
+.story.tasting .story-bean-2 {
+  --dy: 18;
+  --rot: -60;
+
+  top: 8%;
+  right: -2%;
+  width: 26px;
+  color: var(--coral);
+  transform: rotate(-30deg);
+}
+
+.story.tasting .story-bean-3 {
+  --dy: -12;
+  --rot: 120;
+
+  right: 6%;
+  bottom: 12%;
+  width: 38px;
+  transform: rotate(70deg);
+}
+
+.story.tasting .story-bean-4 {
+  --dy: 26;
+  --rot: -90;
+  --bean-line: var(--roast);
+
+  bottom: 6%;
+  left: 6%;
+  width: 24px;
+  color: var(--amber);
+  transform: rotate(-70deg);
+}
+
+/* personal: giant heading above copy and the pod + mug on a crema ellipse */
+main .section:has(.story.personal) {
+  overflow: clip;
+}
+
+.story.personal .story-inner > h1,
+.story.personal .story-inner > h2,
+.story.personal .story-inner > h3 {
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--spacing-md);
+  font-size: clamp(3.2rem, 1rem + 8.4vw, 9.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+}
+
+.story.personal .story-text p:not(.button-wrapper) {
+  max-width: 44ch;
+  margin-bottom: 28px;
+  font-size: var(--body-font-size-l);
+}
+
+.story.personal .story-objects {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.45;
+}
+
+.story.personal .story-objects::before {
+  content: '';
+  position: absolute;
+  inset: 4% 6% 0;
+  border-radius: 50%;
+  background-color: var(--crema);
+  box-shadow: 0 30px 60px oklch(0% 0 0deg / 20%);
+}
+
+.story.personal .story-objects picture {
+  position: absolute;
+}
+
+.story.personal .story-objects img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.story.personal .story-pod {
+  top: 12%;
+  left: 9%;
+  width: 50%;
+  filter: drop-shadow(0 18px 16px oklch(0% 0 0deg / 25%));
+}
+
+.story.personal .story-mug {
+  right: 9%;
+  bottom: 8%;
+  width: 38%;
+}
+
+@media (width >= 900px) {
+  .story.dawn .story-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+
+  .story.dawn .story-sun {
+    width: min(100%, 460px);
+  }
+
+  .story.tasting .story-grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  }
+
+  .story.tasting .story-bag {
+    width: min(100%, 460px);
+  }
+
+  .story.personal .story-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+}
+
+/* ---------- enhanced: pinned scenes driven by --p (0 to 1) ---------- */
+main .section.story-enhanced {
+  padding: 0;
+}
+
+.section.story-enhanced .story {
+  height: 150vh;
+}
+
+.section.story-enhanced .story.dawn {
+  height: 170vh;
+}
+
+.section.story-enhanced .story-stage {
+  position: sticky;
+  top: var(--nav-height);
+  display: grid;
+  align-items: center;
+  height: calc(100vh - var(--nav-height));
+  overflow: clip;
+  overflow-clip-margin: 90px;
+}
+
+/* each step fades and rises in from its own start point (--at) */
+.section.story-enhanced .story-step {
+  --step: clamp(0, calc((var(--p, 0) - var(--at, 0.3)) * 5), 1);
+
+  opacity: var(--step);
+  transform: translateY(calc((1 - var(--step)) * 28px));
+  will-change: opacity, transform;
+}
+
+/* dawn: the ground rises from midnight roast to amber (fully amber by --p 0.25),
+   the sun climbs and grows (done by 0.59); text from 0.27, finished by 0.65 */
+main .section.amber.story-enhanced:has(.story.dawn) {
+  background-color: color-mix(in oklch, var(--roast) calc((1 - min(1, var(--p, 0) * 4)) * 100%), var(--amber));
+}
+
+.section.story-enhanced .story.dawn .story-sun {
+  transform: translateY(calc((1 - min(1, var(--p, 0) * 1.7)) * 46vh)) scale(calc(0.5 + min(1, var(--p, 0) * 1.7) * 0.5));
+}
+
+.section.story-enhanced .story.dawn .story-step:nth-child(1) { --at: 0.27; }
+.section.story-enhanced .story.dawn .story-step:nth-child(2) { --at: 0.36; }
+.section.story-enhanced .story.dawn .story-step:nth-child(3) { --at: 0.45; }
+
+/* tasting: the bag tilts up into place (done by 0.67), beans drift */
+.section.story-enhanced .story.tasting .story-bag img {
+  transform: rotate(calc((1 - min(1, var(--p, 0) * 1.5)) * -10deg)) translateY(calc((1 - min(1, var(--p, 0) * 1.5)) * 14vh));
+}
+
+.section.story-enhanced .story.tasting .story-bean {
+  translate: 0 calc(var(--p, 0) * var(--dy, -16) * 1vh);
+  rotate: calc(var(--p, 0) * var(--rot, 60) * 1deg);
+}
+
+.section.story-enhanced .story.tasting .story-step:nth-child(1) { --at: 0.04; }
+.section.story-enhanced .story.tasting .story-step:nth-child(2) { --at: 0.14; }
+.section.story-enhanced .story.tasting .story-step:nth-child(3) { --at: 0.26; }
+
+/* personal: heading rises in (always fully opaque, so its contrast holds at
+   every --p), pod and mug rotate into place (done by 0.67) */
+.section.story-enhanced .story.personal .story-inner > :is(h1, h2, h3) {
+  transform: translateY(calc((1 - min(1, var(--p, 0) * 3)) * 6vh));
+}
+
+.section.story-enhanced .story.personal .story-pod {
+  transform: translateY(calc((1 - min(1, var(--p, 0) * 1.5)) * 18vh)) rotate(calc((1 - min(1, var(--p, 0) * 1.5)) * -12deg));
+}
+
+.section.story-enhanced .story.personal .story-mug {
+  transform: translateY(calc((1 - min(1, var(--p, 0) * 1.5)) * 26vh)) rotate(calc((1 - min(1, var(--p, 0) * 1.5)) * 10deg));
+}
+
+.section.story-enhanced .story.personal .story-step:nth-child(1) { --at: 0.1; }
+.section.story-enhanced .story.personal .story-step:nth-child(2) { --at: 0.22; }
