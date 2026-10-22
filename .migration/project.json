@@ -1,0 +1,9 @@
+{
+  "sites": {
+    "frescopa-commerce": {
+      "previewOrg": "adobedevxsc",
+      "previewSite": "frescopa-commerce",
+      "contentHostUrl": "https://content.da.live/adobedevxsc/frescopa-commerce/"
+    }
+  }
+}
