@@ -38,10 +38,12 @@ The homepage is seven sections, each with its own ground (section metadata `Styl
 | 7 | `roast` | **Reward** |
 
 ### Hero (arch)
+Every page opens with one: the homepage, category pages, content pages and Locations.
+
 | Row | Content |
 |---|---|
-| 1 | The photo (shown in the arch frame; loaded first, so keep it one image). |
-| 2 | The page's only **h1**. Put the highlighted phrase in *italics* (it renders upright, in amber). Then a short label paragraph, then the CTA as a **bold** link. |
+| 1 | The photo (shown in the arch frame; loaded first, so keep it one image). Leave this row out for a text-only hero. |
+| 2 | The page's only **h1**. Put a highlighted phrase in *italics* (it renders upright, in amber). A paragraph that is entirely **bold** is a label line (small amber capitals): put it above the h1 as an eyebrow, or below it as a note. Other paragraphs are body text. End with the CTA as a **bold** link. |
 
 The amber circle and floating coffee beans are decoration added by the block; there is nothing to author for them.
 
@@ -67,6 +69,23 @@ No map is shown.
 
 ### Reward
 One row: **h2**, one paragraph, then the CTA as a **bold** link. The teal panel and ribbon artwork come from the block.
+
+## Template pages (Phase 3)
+
+| Page type | Sections (`Style`) |
+|---|---|
+| Category (`/coffee`, `/machines`, `/accessories`, `/tea`) | Hero (`roast`); one section per product group: optional h2, then **Cards (arch)** (`roast`); prose such as the article teaser or enquiry copy (`crema`). |
+| Content (`/about-us`, `/sustainability`, `/business`, `/subscription`, `/contact-us`) | Hero (`roast`); prose (`crema`); **Columns** for image-and-text features (`crema`, or `amber` for a call-out such as "FIND YOUR ANSWERS"). |
+| Locations | Hero (`roast`), **Store Locator** (`amber`). |
+
+### Cards (arch) for products
+One row per product: the product photo, then an **h3** whose link goes to the live product page (`https://frescopa.coffee/products/<sku>/<sku>`). No prices: the store stays on the live site (D11).
+
+### Columns
+One row per feature: the image in one cell, the text in the other (heading, then paragraphs). A paragraph that is entirely **bold** is a lead-in or sub-heading. On wide screens the image side alternates from row to row; on small screens the image comes first.
+
+## Links
+Pages being migrated are linked site-relative (`/coffee`). Everything else on frescopa.coffee (quiz, products, account, sign-up, blog) is linked absolute to the live site.
 
 ## Buttons
 

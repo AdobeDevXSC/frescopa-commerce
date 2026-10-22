@@ -423,6 +423,11 @@ main > .section:empty {
   display: none;
 }
 
+/* prose keeps a readable measure */
+main .default-content-wrapper > :is(p, ul, ol) {
+  max-width: 60ch;
+}
+
 /* a section's opening heading sits on its padding, not below an extra margin */
 main > .section > .default-content-wrapper:first-child > :is(h1, h2, h3):first-child {
   margin-top: 0;

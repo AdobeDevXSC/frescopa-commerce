@@ -54,9 +54,13 @@ main .section.roast:has(.hero.arch) {
   gap: clamp(24px, 4vw, 64px);
 }
 
-.hero.arch h1 {
+/* text sits above the decorative beans so they never cover a letter */
+.hero.arch .hero-text {
   position: relative;
-  z-index: 2;
+  z-index: 4;
+}
+
+.hero.arch h1 {
   margin: 0;
   color: var(--crema);
 }
@@ -71,6 +75,22 @@ main .section.roast:has(.hero.arch) {
   font: 600 var(--body-font-size-xs) / 1.4 var(--body-font-family);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+/* a label authored above the heading reads as an eyebrow */
+.hero.arch .hero-label:has(+ h1, + h2) {
+  margin: 0 0 20px;
+}
+
+.hero.arch .hero-body {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  color: var(--crema);
+  font-size: var(--body-font-size-l);
+}
+
+.hero.arch .hero-body + .hero-body {
+  margin-top: 12px;
 }
 
 .hero.arch .button-wrapper {
@@ -190,9 +210,18 @@ main .section.roast:has(.hero.arch) {
     align-items: end;
   }
 
+  .hero.arch.hero-text-only {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .hero.arch .hero-media {
     justify-self: end;
     width: min(100%, 440px);
     margin-top: 0;
   }
+}
+
+/* no photo: the text spans the full width */
+.hero.arch.hero-text-only .hero-media {
+  display: none;
 }

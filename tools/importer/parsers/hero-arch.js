@@ -35,8 +35,11 @@ export default function parse(element, { document }) {
 
   // the live teaser script uppercases the eyebrow; keep the authored casing
   const eyebrow = text(element.querySelector('.eyebrow')).replace(/(\.\.\.|…)$/, '');
+  // a bold-only paragraph is the hero's label line
   const label = document.createElement('p');
-  label.textContent = /^mybarista coffee quiz$/i.test(eyebrow) ? 'MyBarista Coffee Quiz' : eyebrow;
+  const labelText = document.createElement('strong');
+  labelText.textContent = /^mybarista coffee quiz$/i.test(eyebrow) ? 'MyBarista Coffee Quiz' : eyebrow;
+  label.append(labelText);
 
   const link = element.querySelector('.cta a, a');
   const ctaP = document.createElement('p');

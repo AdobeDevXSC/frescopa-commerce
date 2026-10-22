@@ -1,10 +1,18 @@
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.columns > div + div {
+  margin-top: var(--spacing-xl);
 }
 
 .columns img {
+  display: block;
   width: 100%;
+  height: auto;
+  border-radius: var(--radius);
 }
 
 .columns > div > div {
@@ -15,19 +23,52 @@
   order: 0;
 }
 
-.columns > div > .columns-img-col img {
-  display: block;
+.columns h2,
+.columns h3 {
+  margin: 0 0 16px;
+  font-size: var(--heading-font-size-l);
+  line-height: 1.05;
+}
+
+.columns p {
+  max-width: 60ch;
+  margin: 0 0 12px;
+}
+
+/* a bold-only paragraph is a lead-in (tagline or sub-heading) */
+.columns p:has(> strong:only-child) {
+  margin-top: 24px;
+}
+
+.columns h2 + p:has(> strong:only-child),
+.columns h3 + p:has(> strong:only-child) {
+  margin-top: 0;
+  font-size: var(--body-font-size-l);
+}
+
+.columns .button-wrapper {
+  margin-top: 24px;
 }
 
 @media (width >= 900px) {
   .columns > div {
+    flex-direction: row;
     align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    gap: clamp(24px, 5vw, 80px);
   }
 
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+
+  .columns > div > .columns-img-col {
+    flex: 0 1 42%;
+    align-self: start;
+  }
+
+  /* alternate the image side from row to row */
+  .columns > div:nth-child(even) > .columns-img-col {
+    order: 1;
   }
 }

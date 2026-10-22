@@ -14,6 +14,50 @@
         { "name": "store-locator", "instances": ["main .store-locator"] },
         { "name": "reward", "instances": ["main .reward"] }
       ]
+    },
+    {
+      "name": "category",
+      "description": "Category landing: page hero, product cards linking to the live store (D11), article teaser, enquiry copy",
+      "urls": [
+        "https://frescopa.coffee/coffee",
+        "https://frescopa.coffee/machines",
+        "https://frescopa.coffee/accessories",
+        "https://frescopa.coffee/en/tea"
+      ],
+      "blocks": [
+        { "name": "page-hero", "instances": ["main .teaser:not(.dark)"] },
+        { "name": "product-cards", "instances": ["main .product-list-page-custom"] },
+        { "name": "article-teaser", "instances": ["main .article"] },
+        { "name": "form-link-out", "instances": ["main .embed-adaptive-form", "main .form"] }
+      ]
+    },
+    {
+      "name": "content",
+      "description": "Content page: page hero, prose, feature columns",
+      "urls": [
+        "https://frescopa.coffee/sustainability",
+        "https://frescopa.coffee/about-us",
+        "https://frescopa.coffee/business",
+        "https://frescopa.coffee/subscription",
+        "https://frescopa.coffee/contact-us"
+      ],
+      "blocks": [
+        { "name": "page-hero", "instances": ["main .teaser:not(.dark)"] },
+        { "name": "heading-hero", "instances": ["main > .section:first-child > .default-content-wrapper:first-child"] },
+        { "name": "feature-columns", "instances": ["main .cards", "main .teaser.dark"] },
+        { "name": "form-link-out", "instances": ["main .embed-adaptive-form", "main .form"] }
+      ]
+    },
+    {
+      "name": "locations",
+      "description": "Locations: page hero and the store locator (ZIP form + static address card, D4)",
+      "urls": [
+        "https://frescopa.coffee/locations"
+      ],
+      "blocks": [
+        { "name": "heading-hero", "instances": ["main > .section:first-child > .default-content-wrapper:first-child"] },
+        { "name": "store-locator", "instances": ["main .store-locator"] }
+      ]
     }
   ]
 }
