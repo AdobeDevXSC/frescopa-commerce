@@ -7,7 +7,7 @@
 - Source blocks on the homepage: `teaser` (hero), `offer`, `store-locator`, `cards` (two instances), `reward`, then `hero` blocks that render as an unconstrained image stack (not migrated).
 
 ## Pages (initial; confirm in Phase 0)
-Status of `<path>.plain.html` was checked on 2026-10-19.
+Status of `<path>.plain.html` was checked on 2026-10-19. Superseded by the full Phase 0 inventory in `page-inventory.md`.
 
 | Path | `.plain.html` | Proposed handling |
 |---|---|---|
