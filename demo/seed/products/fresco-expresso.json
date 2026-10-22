@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "CSM5148",
+    "name": "Fresco Expresso",
+    "slug": "fresco-expresso",
+    "status": "ENABLED",
+    "category": "Coffee Machines",
+    "brand": "Fréscopa",
+    "shortDescription": "Designed for connoisseurs of refined taste, the dual-nozzle system unites aesthetic sophistication with technical mastery, perfecting every bespoke coffee indulgence.",
+    "description": "Designed to elevate your coffee-making experience with its advanced features and sleek design. This coffee machine boasts a double nozzle capacity, allowing you to brew two cups simultaneously, perfect for busy mornings or entertaining guests. The advanced coarseness calibration ensures that you can customize the grind size to your preference, delivering the perfect cup of coffee every time.\n\nThe detachable frothing whisk adds a touch of luxury, enabling you to create creamy and frothy milk for lattes, cappuccinos, and other specialty drinks. The removable reservoir makes filling and cleaning a breeze, ensuring that your coffee machine is always ready for use. With its modern design and user-friendly interface, this coffee machine is a must-have for any coffee enthusiast. Enjoy barista-quality coffee in the comfort of your home with this versatile and reliable coffee machine.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:f8cb3fc8-dd58-4033-bc7b-e322e914933b",
+        "label": "Fresco Expresso",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 399
+      }
+    ]
+  }
+}

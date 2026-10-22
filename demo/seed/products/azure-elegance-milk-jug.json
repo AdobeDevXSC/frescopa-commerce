@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "ACC511",
+    "name": "Azure Elegance Milk Jug",
+    "slug": "azure-elegance-milk-jug",
+    "status": "ENABLED",
+    "category": "Accessories",
+    "brand": "Fréscopa",
+    "shortDescription": "A stylish, high-quality ceramic jug with a serene blue hue",
+    "description": "The Azure Elegance Milk Jug is a stylish and functional addition to your kitchen, featuring a serene blue hue and high-quality ceramic construction. Its sleek, ergonomic design ensures a comfortable grip and easy pouring without spills, while the wide mouth allows for effortless filling and cleaning. Perfect for serving milk with your morning cereal, coffee, or tea, this versatile jug combines timeless design with durable construction, making it both a practical choice and a stylish statement piece for everyday use or special occasions.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:2c229378-478b-4eee-a9b3-d945245c2b0e",
+        "label": "Azure Elegance Milk Jug",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 9.99
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  ":version": 3,
+  ":names": ["settings", "price-books", "metadata", "shoppers"],
+  ":type": "multi-sheet",
+  "settings": {
+    "total": 4,
+    "offset": 0,
+    "limit": 4,
+    "data": [
+      { "key": "locale", "value": "en-US" },
+      { "key": "skuPrefix", "value": "T-" },
+      { "key": "catalogViewId", "value": "view-123" },
+      { "key": "customer", "value": "Acme" }
+    ]
+  },
+  "price-books": {
+    "total": 2,
+    "offset": 0,
+    "limit": 2,
+    "data": [
+      { "priceBookId": "base", "name": "Base", "currency": "USD", "shopperGroup": "", "derivedFrom": "", "adjustPercent": "" },
+      { "priceBookId": "vip", "name": "VIP", "currency": "USD", "shopperGroup": "vip", "derivedFrom": "base", "adjustPercent": "-15" }
+    ]
+  },
+  "metadata": {
+    "total": 3,
+    "offset": 0,
+    "limit": 3,
+    "data": [
+      { "code": "brand", "label": "Brand", "dataType": "text", "filterable": "true", "searchable": "true", "sortable": "", "visibleIn": "PRODUCT_DETAIL,SEARCH_RESULTS" },
+      { "code": "category", "label": "Category", "dataType": "TEXT", "filterable": "x", "searchable": "", "sortable": "no", "visibleIn": "" },
+      { "code": "roast", "label": "Roast", "dataType": "TEXT", "filterable": "yes", "searchable": "false", "sortable": "", "visibleIn": "" }
+    ]
+  },
+  "shoppers": {
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [{ "email": "vip@example.com", "name": "Vera", "group": "vip" }]
+  }
+}

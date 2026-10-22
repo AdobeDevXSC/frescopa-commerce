@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "ACC341",
+    "name": "Compostable Cups",
+    "slug": "compostable-cups",
+    "status": "ENABLED",
+    "category": "Accessories",
+    "brand": "Fréscopa",
+    "shortDescription": "Pack of 50",
+    "description": "Pack of 50",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:e1500f8a-b513-4a13-a476-5cd32656142c",
+        "label": "Compostable Cups",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 7.99
+      }
+    ]
+  }
+}

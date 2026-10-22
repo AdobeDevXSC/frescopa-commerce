@@ -1,0 +1,118 @@
+{
+  ":version": 3,
+  ":names": [
+    "settings",
+    "price-books",
+    "metadata",
+    "shoppers"
+  ],
+  ":type": "multi-sheet",
+  "settings": {
+    "total": 7,
+    "limit": 7,
+    "offset": 0,
+    "data": [
+      {
+        "key": "locale",
+        "value": "en-US"
+      },
+      {
+        "key": "skuPrefix",
+        "value": "FRS-"
+      },
+      {
+        "key": "catalogViewId",
+        "value": ""
+      },
+      {
+        "key": "defaultPriceBookId",
+        "value": "retail"
+      },
+      {
+        "key": "customer",
+        "value": "Fréscopa (template)"
+      },
+      {
+        "key": "label",
+        "value": "Fréscopa ACO demo"
+      },
+      {
+        "key": "demoId",
+        "value": ""
+      }
+    ]
+  },
+  "price-books": {
+    "total": 3,
+    "limit": 3,
+    "offset": 0,
+    "data": [
+      {
+        "priceBookId": "retail",
+        "name": "Retail",
+        "currency": "USD",
+        "shopperGroup": "retail",
+        "derivedFrom": "",
+        "adjustPercent": ""
+      },
+      {
+        "priceBookId": "member",
+        "name": "MyBarista Members",
+        "currency": "USD",
+        "shopperGroup": "member",
+        "derivedFrom": "retail",
+        "adjustPercent": "-15"
+      },
+      {
+        "priceBookId": "wholesale",
+        "name": "Business (Fréscopa Enterprise)",
+        "currency": "USD",
+        "shopperGroup": "business",
+        "derivedFrom": "retail",
+        "adjustPercent": "-25"
+      }
+    ]
+  },
+  "metadata": {
+    "total": 2,
+    "limit": 2,
+    "offset": 0,
+    "data": [
+      {
+        "code": "brand",
+        "label": "Brand",
+        "dataType": "TEXT",
+        "filterable": "true",
+        "searchable": "true",
+        "sortable": "false",
+        "visibleIn": "PRODUCT_DETAIL,PRODUCT_LISTING,SEARCH_RESULTS"
+      },
+      {
+        "code": "category",
+        "label": "Category",
+        "dataType": "TEXT",
+        "filterable": "true",
+        "searchable": "true",
+        "sortable": "true",
+        "visibleIn": "PRODUCT_DETAIL,PRODUCT_LISTING,SEARCH_RESULTS"
+      }
+    ]
+  },
+  "shoppers": {
+    "total": 2,
+    "limit": 2,
+    "offset": 0,
+    "data": [
+      {
+        "email": "member@example.com",
+        "name": "Morgan Member",
+        "group": "member"
+      },
+      {
+        "email": "buyer@example.com",
+        "name": "Blake Buyer",
+        "group": "business"
+      }
+    ]
+  }
+}

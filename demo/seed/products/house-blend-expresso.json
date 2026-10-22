@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "HBEX213",
+    "name": "House Blend - Expresso",
+    "slug": "house-blend-expresso",
+    "status": "ENABLED",
+    "category": "Bagged Coffee",
+    "brand": "Fréscopa",
+    "shortDescription": "A rich and full-bodied coffee experience with notes of dark chocolate, caramel, and nuttiness, ensuring every cup is delightful and aromatic.",
+    "description": "A meticulously crafted blend that embodies the perfect balance of flavor and aroma. This exceptional espresso blend combines the finest Arabica and Robusta beans, roasted to perfection to deliver a rich and full-bodied coffee experience. The House Blend offers a harmonious fusion of bold and smooth flavors, with notes of dark chocolate, caramel, and a hint of nuttiness, creating a complex and satisfying taste profile. Each bag is carefully sealed to preserve the freshness and quality of the beans, ensuring that every cup you brew is as delightful as the first. Whether you're enjoying a morning espresso shot or a creamy latte, our House Blend Espresso Bagged Coffee promises to elevate your coffee moments with its exquisite taste and invigorating aroma.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:dbeb9144-875c-4965-8af5-36c96c436c28",
+        "label": "House Blend - Expresso",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 14.99
+      }
+    ]
+  }
+}

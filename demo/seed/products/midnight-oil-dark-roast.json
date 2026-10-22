@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "POD341",
+    "name": "Midnight Oil - Dark Roast",
+    "slug": "midnight-oil-dark-roast",
+    "status": "ENABLED",
+    "category": "Coffee Pods",
+    "brand": "Fréscopa",
+    "shortDescription": "A rich blend of Robusta beans with candied hazelnut and chocolate flavor.",
+    "description": "Experience the bold and robust flavor of our rich blend of Robusta beans, expertly crafted to deliver a truly indulgent coffee experience. Infused with the delightful notes of candied hazelnut and chocolate, this blend offers a harmonious balance of nutty sweetness and rich cocoa undertones. Each sip reveals the full-bodied character of Robusta beans, enhanced by the smooth and creamy flavors of hazelnut and chocolate, creating a luxurious and satisfying coffee that is perfect for any time of day. Whether you're enjoying a morning pick-me-up or a relaxing afternoon treat, this exquisite blend promises to elevate your coffee moments with its irresistible taste and aroma.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:0eff15fc-5599-4b47-8b52-cd1a788bc2da",
+        "label": "Midnight Oil - Dark Roast",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 3.99
+      }
+    ]
+  }
+}

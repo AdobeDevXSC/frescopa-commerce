@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "CSM5122",
+    "name": "Frescopa Smart Machine",
+    "slug": "frescopa-smart-machine",
+    "status": "ENABLED",
+    "category": "Coffee Machines",
+    "brand": "Fréscopa",
+    "shortDescription": "Retired Product",
+    "description": "Retired Product",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:8e7990e0-4758-4fe1-9357-9e6d7f555160",
+        "label": "Frescopa Smart Machine",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 99
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "CSM5131",
+    "name": "Fresco Deluxe",
+    "slug": "fresco-deluxe",
+    "status": "ENABLED",
+    "category": "Coffee Machines",
+    "brand": "Fréscopa",
+    "shortDescription": "Triple nozzle capacity with advanced features such as timed brewing, adjustable grind coarseness, and custom drink settings.",
+    "description": "Designed to cater to all your coffee needs with its advanced features and innovative design. This coffee machine boasts a triple nozzle capacity, allowing you to brew three cups simultaneously, making it perfect for busy households or entertaining guests. The timed brewing feature ensures that your coffee is ready exactly when you need it, providing convenience and efficiency for your daily routine.\n\nWith adjustable grind coarseness, you can customize the grind size to suit your preference, ensuring the perfect cup of coffee every time. The custom drink settings allow you to personalize your coffee experience, whether you prefer a strong espresso, a smooth latte, or a frothy cappuccino. The sleek and modern design of this coffee machine, combined with its user-friendly interface, makes it a must-have for any coffee enthusiast. Enjoy barista-quality coffee in the comfort of your home with this versatile and reliable coffee machine.",
+    "images": [
+      {
+        "url": "https://delivery-p154720-e1630809.adobeaemcloud.com/adobe/assets/urn:aaid:aem:59d0ace8-675f-43d9-a28d-0adedf77791c",
+        "label": "Fresco Deluxe",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 499
+      }
+    ]
+  }
+}

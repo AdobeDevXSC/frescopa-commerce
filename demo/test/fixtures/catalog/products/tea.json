@@ -1,0 +1,1 @@
+{ "metadata": { "schemaName": "aco-product" }, "data": { "sku": "TEA-1", "name": "Green Tea", "slug": "green-tea", "status": "DISABLED", "prices": [{ "priceBookId": "base", "regular": 5.5 }] } }

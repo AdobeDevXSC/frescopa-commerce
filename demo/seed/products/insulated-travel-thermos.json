@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "ITT743",
+    "name": "Insulated Travel Thermos",
+    "slug": "insulated-travel-thermos",
+    "status": "ENABLED",
+    "category": "Accessories",
+    "brand": "Fréscopa",
+    "shortDescription": "This high-quality thermos is designed to keep your beverages at the ideal temperature for hours",
+    "description": "the perfect companion for your on-the-go lifestyle. This high-quality thermos is designed to keep your beverages at the ideal temperature for hours, whether you're enjoying a hot coffee on a chilly morning or a refreshing iced tea on a warm afternoon. Made from durable stainless steel, it features double-wall insulation that ensures your drinks stay hot or cold for extended periods. The leak-proof lid provides a secure seal, preventing any spills or leaks, while the wide mouth allows for easy filling, pouring, and cleaning. With its sleek and modern design, the Insulated Travel Thermos is not only functional but also stylish, making it a must-have for your daily commute, outdoor adventures, or busy workdays. Enjoy your favorite beverages anytime, anywhere with this reliable and versatile travel thermos.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:436797cd-8bb8-41c9-b299-1e963b4cc208",
+        "label": "Insulated Travel Thermos",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 39.99
+      }
+    ]
+  }
+}

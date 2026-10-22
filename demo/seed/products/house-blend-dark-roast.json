@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "HBDR212",
+    "name": "House Blend - Dark Roast",
+    "slug": "house-blend-dark-roast",
+    "status": "ENABLED",
+    "category": "Bagged Coffee",
+    "brand": "Fréscopa",
+    "shortDescription": "A bold blend of Arabica and Robusta beans, offering a deep taste with notes of dark chocolate, toasted nuts, and a hint of smokiness",
+    "description": "A masterfully crafted blend that delivers a bold and intense coffee experience. This exceptional dark roast is made from the finest Arabica and Robusta beans, carefully selected and roasted to perfection to bring out their rich and robust flavors. The House Blend Dark Roast offers a deep, full-bodied taste with notes of dark chocolate, toasted nuts, and a hint of smokiness, creating a complex and satisfying flavor profile. Each bag is meticulously sealed to preserve the freshness and quality of the beans, ensuring that every cup you brew is as delightful as the first. Whether you're enjoying a strong morning coffee or a rich after-dinner espresso, our House Blend Dark Roast Bagged Coffee promises to elevate your coffee moments with its exquisite taste and invigorating aroma.",
+    "featured": true,
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546482.adobeaemcloud.com/adobe/assets/urn:aaid:aem:5f861728-7e97-4513-ab01-d6d174f244d6",
+        "label": "House Blend - Dark Roast",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 14.99
+      }
+    ]
+  }
+}

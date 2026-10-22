@@ -1,0 +1,1 @@
+{ "metadata": { "schemaName": "aco-product" }, "data": { "sku": "BEAN-1", "name": "House Beans", "slug": "house-beans", "status": "ENABLED", "visibleIn": "SEARCH", "prices": [{ "priceBookId": "base", "regular": 10 }, { "priceBookId": "vip", "regular": 8 }] } }

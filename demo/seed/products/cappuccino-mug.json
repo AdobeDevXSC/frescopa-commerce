@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "ACC558",
+    "name": "Cappuccino Mug",
+    "slug": "cappuccino-mug",
+    "status": "ENABLED",
+    "category": "Accessories",
+    "brand": "Fréscopa",
+    "shortDescription": "Cup & Saucer Set",
+    "description": "Cup & Saucer Set",
+    "featured": true,
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:d99d2ffb-650f-48c3-803e-5af07960da05",
+        "label": "Cappuccino Mug",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 4.99
+      }
+    ]
+  }
+}

@@ -14,3 +14,11 @@ qa/
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md
+
+# Secrets and local demo-kit state
+.env
+.env.*
+!.env.example
+qa/
+demo/node_modules/
+demo/.state/
