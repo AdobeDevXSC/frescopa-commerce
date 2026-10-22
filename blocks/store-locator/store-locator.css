@@ -94,6 +94,7 @@
 .store-locator .store-locator-card h4 {
   margin: 0 0 6px;
   font-size: var(--heading-font-size-m);
+  line-height: 1.6;
 }
 
 .store-locator .store-locator-card p {

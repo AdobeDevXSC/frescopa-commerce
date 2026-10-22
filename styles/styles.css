@@ -418,6 +418,11 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+/* a section left empty (e.g. after its metadata table is removed) takes no space */
+main > .section:empty {
+  display: none;
+}
+
 /* a section's opening heading sits on its padding, not below an extra margin */
 main > .section > .default-content-wrapper:first-child > :is(h1, h2, h3):first-child {
   margin-top: 0;

@@ -69,7 +69,7 @@ export default {
 
     executeTransformers('afterTransform', main, payload);
 
-    main.appendChild(document.createElement('hr'));
+    // metadata stays in the last section (a separate section would render empty)
     WebImporter.rules.createMetadata(main, document);
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
