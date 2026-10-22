@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "ACC563",
+    "name": "Espresso Mug",
+    "slug": "espresso-mug",
+    "status": "ENABLED",
+    "category": "Accessories",
+    "brand": "Fréscopa",
+    "shortDescription": "Cup & Saucer Set",
+    "description": "Cup & Saucer Set",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:7ea346bf-3a14-49cf-a966-f10b72dda5c7",
+        "label": "Espresso Mug",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 4.99
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "CSM5125",
+    "name": "Fresco Original",
+    "slug": "fresco-original",
+    "status": "ENABLED",
+    "category": "Coffee Machines",
+    "brand": "Fréscopa",
+    "shortDescription": "Engineered for the discerning coffee devotee, the single-serve espresso unit merges modern elegance with artisanal precision for an effortlessly exquisite brew.",
+    "description": "The single-serve espresso machine is a perfect addition to any coffee lover's kitchen, offering convenience and quality in one compact design. It features a detachable reservoir, making it easy to fill with water and clean, ensuring that your espresso is always brewed with fresh water. The machine also includes a drip dish that can be removed for effortless cleaning, preventing any mess on your countertop. With its sleek and modern design, this espresso machine not only delivers delicious, barista-quality espresso shots but also adds a touch of elegance to your kitchen decor. Whether you're in a rush in the morning or enjoying a leisurely afternoon coffee break, this single-serve espresso machine provides a quick and easy way to enjoy your favorite espresso drinks.",
+    "featured": true,
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:8e7990e0-4758-4fe1-9357-9e6d7f555160",
+        "label": "Fresco Original",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 299
+      }
+    ]
+  }
+}

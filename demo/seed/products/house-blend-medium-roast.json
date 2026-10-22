@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "HBMR211",
+    "name": "House Blend - Medium Roast",
+    "slug": "house-blend-medium-roast",
+    "status": "ENABLED",
+    "category": "Bagged Coffee",
+    "brand": "Fréscopa",
+    "shortDescription": "A smooth and bold notes of caramel, toasted nuts, and fruitiness, ensuring a flavorful and aromatic coffee experience.",
+    "description": "A perfectly balanced blend that offers a delightful coffee experience. This medium roast is crafted from the finest Arabica and Robusta beans, carefully selected and roasted to bring out their natural flavors. The House Blend Medium Roast features a harmonious combination of smooth and bold notes, with hints of caramel, toasted nuts, and a touch of fruitiness",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:d6363ad1-7b18-4bf6-859c-899108e7fe5e",
+        "label": "House Blend - Medium Roast",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 14.99
+      }
+    ]
+  }
+}

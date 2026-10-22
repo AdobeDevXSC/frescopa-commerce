@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "Image": {
+      "type": "object",
+      "title": "Image",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "Image URL",
+          "pattern": "^https://"
+        },
+        "label": {
+          "type": "string",
+          "title": "Alt text"
+        },
+        "role": {
+          "type": "string",
+          "title": "Role",
+          "enum": ["BASE", "SMALL", "THUMBNAIL", "SWATCH"],
+          "default": "BASE"
+        }
+      }
+    },
+    "Price": {
+      "type": "object",
+      "title": "Price",
+      "required": ["priceBookId", "regular"],
+      "properties": {
+        "priceBookId": {
+          "type": "string",
+          "title": "Price book ID (from /commerce/settings › price-books)",
+          "pattern": "^[a-z0-9_-]+$"
+        },
+        "regular": {
+          "type": "number",
+          "title": "Regular price",
+          "minimum": 0
+        }
+      }
+    },
+    "Attribute": {
+      "type": "object",
+      "title": "Attribute",
+      "required": ["code", "value"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "title": "Attribute code (from /commerce/settings › metadata)",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "value": {
+          "type": "string",
+          "title": "Value"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "title": "ACO Product",
+  "required": ["sku", "name", "slug", "status"],
+  "properties": {
+    "sku": {
+      "type": "string",
+      "title": "SKU (the demo prefix is added at sync)",
+      "minLength": 2,
+      "maxLength": 40,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "name": {
+      "type": "string",
+      "title": "Product name",
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "slug": {
+      "type": "string",
+      "title": "URL slug",
+      "minLength": 2,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": ["ENABLED", "DISABLED"],
+      "default": "ENABLED"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category",
+      "enum": ["Coffee Machines", "Bagged Coffee", "Coffee Pods", "Tea", "Bundles", "Accessories"]
+    },
+    "brand": {
+      "type": "string",
+      "title": "Brand",
+      "default": "Fréscopa"
+    },
+    "shortDescription": {
+      "type": "string",
+      "title": "Short description",
+      "maxLength": 400
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 4000
+    },
+    "featured": {
+      "type": "boolean",
+      "title": "Featured on the homepage",
+      "default": false
+    },
+    "visibleIn": {
+      "type": "string",
+      "title": "Visible in",
+      "enum": ["CATALOG_AND_SEARCH", "CATALOG", "SEARCH", "HIDDEN"],
+      "default": "CATALOG_AND_SEARCH"
+    },
+    "images": {
+      "type": "array",
+      "title": "Images",
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/Image" }
+    },
+    "prices": {
+      "type": "array",
+      "title": "Prices",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/Price" }
+    },
+    "attributes": {
+      "type": "array",
+      "title": "Extra attributes",
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/Attribute" }
+    }
+  }
+}

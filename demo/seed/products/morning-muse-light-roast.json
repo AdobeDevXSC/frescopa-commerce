@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "POD311",
+    "name": "Morning Muse - Light Roast",
+    "slug": "morning-muse-light-roast",
+    "status": "ENABLED",
+    "category": "Coffee Pods",
+    "brand": "Fréscopa",
+    "shortDescription": "A Colombian roast with caramel, chocolate, and cherry flavor.",
+    "description": "Discover the exquisite taste of our Colombian roast, a coffee that embodies the rich and vibrant flavors of Colombia's finest beans. This exceptional roast is infused with the delightful notes of caramel, chocolate, and cherry, creating a harmonious blend that is both indulgent and invigorating. The smooth caramel adds a touch of sweetness, while the rich chocolate provides a deep, velvety undertone. The subtle hint of cherry brings a fruity brightness that perfectly balances the overall flavor profile. Each sip of this Colombian roast offers a luxurious and satisfying coffee experience, making it the perfect choice for any time of day. Whether you're starting your morning or enjoying a relaxing afternoon break, this blend promises to elevate your coffee moments with its irresistible taste and aroma.",
+    "featured": true,
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:0eff15fc-5599-4b47-8b52-cd1a788bc2da",
+        "label": "Morning Muse - Light Roast",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 3.99
+      }
+    ]
+  }
+}

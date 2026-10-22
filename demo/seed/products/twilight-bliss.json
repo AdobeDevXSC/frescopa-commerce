@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "TEA106",
+    "name": "Twilight Bliss",
+    "slug": "twilight-bliss",
+    "status": "ENABLED",
+    "category": "Tea",
+    "brand": "Fréscopa",
+    "shortDescription": "A calming blend perfect for unwinding and relaxing in the evening",
+    "description": "A calming blend perfect for unwinding and relaxing in the evening",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:d15cf689-541a-484a-bc83-15fec9fcd163",
+        "label": "Twilight Bliss",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 7.99
+      }
+    ]
+  }
+}

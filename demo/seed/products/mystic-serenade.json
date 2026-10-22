@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "TEA105",
+    "name": "Mystic Serenade",
+    "slug": "mystic-serenade",
+    "status": "ENABLED",
+    "category": "Tea",
+    "brand": "Fréscopa",
+    "shortDescription": "A refreshing blend to start your day with a burst of energy and tranquility",
+    "description": "A refreshing blend to start your day with a burst of energy and tranquility",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:d15cf689-541a-484a-bc83-15fec9fcd163",
+        "label": "Mystic Serenade",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 7.99
+      }
+    ]
+  }
+}

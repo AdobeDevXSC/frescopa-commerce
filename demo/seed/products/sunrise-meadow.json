@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "TEA103",
+    "name": "Sunrise Meadow",
+    "slug": "sunrise-meadow",
+    "status": "ENABLED",
+    "category": "Tea",
+    "brand": "Fréscopa",
+    "shortDescription": "A soothing blend that captures the essence of a peaceful, blooming meadow.",
+    "description": "A soothing blend that captures the essence of a peaceful, blooming meadow.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:d15cf689-541a-484a-bc83-15fec9fcd163",
+        "label": "Sunrise Meadow",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 7.99
+      }
+    ]
+  }
+}

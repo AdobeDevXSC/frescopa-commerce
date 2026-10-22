@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "schemaName": "aco-product"
+  },
+  "data": {
+    "sku": "POD351",
+    "name": "Afternoon Delight",
+    "slug": "afternoon-delight",
+    "status": "ENABLED",
+    "category": "Coffee Pods",
+    "brand": "Fréscopa",
+    "shortDescription": "100% Arabica beans with French vanilla and caramel flavor.",
+    "description": "Indulge in the rich and aromatic experience of our 100% Arabica beans, expertly infused with the delightful flavors of French vanilla and caramel. These premium coffee beans are carefully selected and roasted to perfection, ensuring a smooth and balanced taste with every sip. The subtle sweetness of French vanilla complements the rich, buttery notes of caramel, creating a harmonious blend that is both comforting and invigorating. Whether you're starting your day or enjoying a relaxing moment, this exquisite coffee offers a luxurious and flavorful escape that will elevate your coffee-drinking experience.",
+    "images": [
+      {
+        "url": "https://delivery-p149891-e1546481.adobeaemcloud.com/adobe/assets/urn:aaid:aem:0eff15fc-5599-4b47-8b52-cd1a788bc2da",
+        "label": "Afternoon Delight",
+        "role": "BASE"
+      }
+    ],
+    "prices": [
+      {
+        "priceBookId": "retail",
+        "regular": 3.99
+      }
+    ]
+  }
+}
