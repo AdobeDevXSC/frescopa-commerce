@@ -301,9 +301,9 @@ main .section.amber.story-enhanced:has(.story.dawn) {
 .section.story-enhanced .story.tasting .story-step:nth-child(2) { --at: 0.14; }
 .section.story-enhanced .story.tasting .story-step:nth-child(3) { --at: 0.26; }
 
-/* personal: heading rises in, pod and mug rotate into place (done by 0.67) */
+/* personal: heading rises in (always fully opaque, so its contrast holds at
+   every --p), pod and mug rotate into place (done by 0.67) */
 .section.story-enhanced .story.personal .story-inner > :is(h1, h2, h3) {
-  opacity: clamp(0, calc(var(--p, 0) * 8 + 0.2), 1);
   transform: translateY(calc((1 - min(1, var(--p, 0) * 3)) * 6vh));
 }
 
