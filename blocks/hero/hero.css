@@ -1,22 +1,23 @@
-.hero-container .hero-wrapper {
+/* default hero: full-bleed image behind the heading */
+.hero-container .hero-wrapper:has(> .hero:not(.arch)) {
   max-width: unset;
   padding: 0;
 }
 
-.hero {
+.hero:not(.arch) {
   position: relative;
   padding: 40px 24px;
   min-height: 300px;
 }
 
-.hero h1 {
+.hero:not(.arch) h1 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   color: var(--background-color);
 }
 
-.hero picture {
+.hero:not(.arch) picture {
   position: absolute;
   z-index: -1;
   inset: 0;
@@ -24,14 +25,174 @@
   box-sizing: border-box;
 }
 
-.hero img {
+.hero:not(.arch) img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
 @media (width >= 900px) {
-  .hero {
+  .hero:not(.arch) {
     padding: 40px 32px;
+  }
+}
+
+/* arch: h1 beside a photo in an arch frame, amber circle, floating beans
+   (beans are placed against the whole section, not the content column) */
+main .section:has(.hero.arch) {
+  position: relative;
+  overflow: clip;
+}
+
+main .section.roast:has(.hero.arch) {
+  padding: 56px 0 72px;
+}
+
+.hero.arch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+}
+
+.hero.arch h1 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: var(--crema);
+}
+
+.hero.arch h1 em {
+  color: var(--amber);
+}
+
+.hero.arch .hero-label {
+  margin: 28px 0 0;
+  color: var(--amber);
+  font: 600 var(--body-font-size-xs) / 1.4 var(--body-font-family);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero.arch .button-wrapper {
+  margin: 20px 0 0;
+}
+
+.hero.arch .hero-media {
+  position: relative;
+  justify-self: center;
+  width: min(86%, 380px);
+  margin-top: 24px;
+}
+
+.hero.arch .hero-media::before {
+  content: '';
+  position: absolute;
+  top: -8%;
+  right: -14%;
+  z-index: 0;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--amber);
+}
+
+.hero.arch .hero-frame {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-arch);
+  overflow: hidden;
+  background-color: var(--roast-2);
+}
+
+.hero.arch .hero-frame img {
+  position: absolute;
+  top: -4%;
+  left: 0;
+  width: 100%;
+  height: 108%;
+  object-fit: cover;
+  object-position: 56% 40%;
+}
+
+.hero.arch .hero-bean {
+  position: absolute;
+  z-index: 3;
+  width: 30px;
+  color: var(--ember);
+  pointer-events: none;
+}
+
+.hero.arch .hero-bean svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero.arch .hero-bean-1 {
+  top: 12%;
+  left: 4%;
+  transform: rotate(24deg);
+}
+
+.hero.arch .hero-bean-2 {
+  --bean-line: var(--roast);
+
+  top: 6%;
+  left: 46%;
+  width: 22px;
+  color: var(--amber);
+  transform: rotate(-40deg);
+  animation-delay: -3s;
+}
+
+.hero.arch .hero-bean-3 {
+  right: 34%;
+  bottom: 10%;
+  width: 36px;
+  transform: rotate(62deg);
+  animation-delay: -5s;
+}
+
+.hero.arch .hero-bean-4 {
+  --bean-line: var(--roast);
+
+  bottom: 6%;
+  left: 12%;
+  width: 20px;
+  color: var(--crema-2);
+  animation-delay: -2s;
+}
+
+/* the page's only infinite animation; off under reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .hero.arch .hero-bean {
+    animation-name: hero-float;
+    animation-duration: 9s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+}
+
+@keyframes hero-float {
+  from { translate: 0 -10px; }
+  to { translate: 6px 14px; }
+}
+
+@media (width >= 900px) {
+  main .section.roast:has(.hero.arch) {
+    padding: 112px 0 136px;
+  }
+
+  .hero.arch {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+  }
+
+  .hero.arch .hero-media {
+    justify-self: end;
+    width: min(100%, 440px);
+    margin-top: 0;
   }
 }

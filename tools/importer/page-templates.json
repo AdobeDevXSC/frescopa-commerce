@@ -1,0 +1,19 @@
+{
+  "templates": [
+    {
+      "name": "homepage",
+      "description": "D1 \"The Ritual\" homepage: hero, three story scenes, shop cards, store locator, reward (docs/migration/homepage-spec.md)",
+      "urls": [
+        "https://frescopa.coffee/"
+      ],
+      "blocks": [
+        { "name": "hero-arch", "instances": ["main .teaser"] },
+        { "name": "story-dawn", "instances": ["main .offer"] },
+        { "name": "story-home-cards", "instances": ["main .section.home .cards"] },
+        { "name": "cards-arch", "instances": ["main .section.card-tiles .cards"] },
+        { "name": "store-locator", "instances": ["main .store-locator"] },
+        { "name": "reward", "instances": ["main .reward"] }
+      ]
+    }
+  ]
+}

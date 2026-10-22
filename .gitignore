@@ -22,3 +22,8 @@ qa/
 qa/
 demo/node_modules/
 demo/.state/
+
+# Importer build output and run reports
+tools/importer/*.bundle.js
+tools/importer/reports/
+tools/importer/bd-snapshots/
