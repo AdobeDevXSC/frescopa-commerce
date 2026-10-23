@@ -1,0 +1,16 @@
+{
+  "name": "Fréscopa Coffee & Tea",
+  "short_name": "Fréscopa",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#211208",
+  "theme_color": "#f5ead9",
+  "lang": "en",
+  "icons": [
+    { "src": "/icons/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/app-icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
