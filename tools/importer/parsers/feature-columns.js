@@ -59,6 +59,14 @@ export default function parse(element, { document }) {
       h2.textContent = text(heading);
       wrap.append(h2);
       heading.remove();
+    } else {
+      // no section heading: the feature titles are h2 so the outline does not skip a level
+      rows.forEach(([, body]) => body.forEach((el, i) => {
+        if (el.tagName !== 'H3') return;
+        const h2 = document.createElement('h2');
+        h2.innerHTML = el.innerHTML;
+        body[i] = h2;
+      }));
     }
   }
 

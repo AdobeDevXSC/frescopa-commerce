@@ -18,6 +18,9 @@ export default function decorate(block) {
     // arch cards keep the delivered (already optimized) pictures; decorative icons have no alt
     ul.querySelectorAll('.cards-card-image img').forEach((img) => {
       if (!img.alt) img.closest('.cards-card-image').classList.add('cards-card-icon');
+      // the card's link already names it; an alt that repeats the name is announced twice
+      const name = img.closest('li').querySelector('.cards-card-body a')?.textContent.trim();
+      if (name && img.alt.trim() === name) img.alt = '';
     });
     blendOpaqueImages(ul.querySelectorAll('.cards-card-image img'));
   } else {

@@ -85,7 +85,7 @@ main .section:has(.cards.arch) > .default-content-wrapper > :is(h1, h2) {
   height: 120px;
 }
 
-.cards.arch .cards-card-body h3 {
+.cards.arch .cards-card-body :is(h2, h3) {
   margin: 12px 0 0;
   font-size: var(--heading-font-size-s);
   line-height: 1.1;

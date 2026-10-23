@@ -3,13 +3,21 @@
 
 /**
  * Live runtime product grid (`product-list-page-custom`) -> Cards (arch) (D11).
- * One row per product: its live photo | h3 with the product name linking to
- * the live product page. No prices. The grid's heading (an h3 just before it
- * on the live page) becomes the section's h2.
+ * One row per product: its live photo | a heading with the product name linking
+ * to the live product page. No prices. The grid's heading (an h3 just before it
+ * on the live page) becomes the section's h2 and the product names are h3;
+ * without one, the product names are h2 so the outline does not skip a level.
  */
 export default function parse(element, { document }) {
   const text = (n) => (n ? n.textContent.replace(/\s+/g, ' ').trim() : '');
   const base = document.location ? document.location.href : 'https://frescopa.coffee/';
+
+  // heading right before the grid on the live page
+  const wrapper = element.parentElement;
+  const prev = wrapper && wrapper.previousElementSibling;
+  const heading = prev && prev.classList.contains('default-content-wrapper')
+    ? prev.querySelector(':scope > :is(h2, h3, h4):last-child') : null;
+  const titleTag = heading ? 'h3' : 'h2';
 
   const seen = new Set();
   const rows = [];
@@ -24,21 +32,16 @@ export default function parse(element, { document }) {
     const img = document.createElement('img');
     img.src = photo ? new URL(photo.getAttribute('src'), base).href : '';
     img.alt = name;
-    const h3 = document.createElement('h3');
+    const title = document.createElement(titleTag);
     const a = document.createElement('a');
     a.href = href;
     a.textContent = name;
-    h3.append(a);
-    rows.push([img, h3]);
+    title.append(a);
+    rows.push([img, title]);
   });
 
   const wrap = document.createElement('div');
   wrap.dataset.d1Style = 'roast';
-  // heading right before the grid on the live page
-  const wrapper = element.parentElement;
-  const prev = wrapper && wrapper.previousElementSibling;
-  const heading = prev && prev.classList.contains('default-content-wrapper')
-    ? prev.querySelector(':scope > :is(h2, h3, h4):last-child') : null;
   if (heading) {
     const h2 = document.createElement('h2');
     h2.textContent = text(heading);
