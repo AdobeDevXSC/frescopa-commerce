@@ -229,6 +229,10 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   import('./consent-check.js');
+  // installable app: register the service worker (never on local development servers)
+  if ('serviceWorker' in navigator && window.location.hostname !== 'localhost') {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
   // load anything that can be postponed to the latest here
 }
 
