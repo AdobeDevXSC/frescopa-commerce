@@ -91,3 +91,7 @@ Confirmed on 2026-10-22.
 | D8 | Announcement bar | Use the `content-inventory.md` wording ("Free shipping from $35 & free coffee samples with code FRESCOPA.") with "Shop Now" → `/subscription`. |
 | D9 | Locales | `/es`, `/fr`, `/jp` are out of scope. |
 | D10 | `/rise-and-shine` | Skip. |
+| D11 | Category product grids | Replace each runtime grid with arch cards: the product's live photo and name, linking to its live product page (`https://frescopa.coffee/products/<sku>/<sku>`). No prices. (Confirmed 2026-10-22, Phase 3.) |
+| D12 | `/subscription` CTA | "Subscribe to MyBarista" links to the quiz (`https://frescopa.coffee/quiz`), where the subscription starts. Replaces D3 for this link. |
+| D13 | `/machines` enquiry copy | Keep "Fill out the form below to register your interest." verbatim and make it a link to the live `/machines` page, where the form works. |
+| D14 | `/contact-us` Help Center | Keep "Visit the Help Center" linking to the homepage, as on the live site; listed in the handover. |

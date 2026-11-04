@@ -23,6 +23,7 @@ export default function parse(element, { document }) {
   const button = element.querySelector('.search__button, button');
   const search = document.createElement('a');
   search.href = 'https://frescopa.coffee/locations';
+  search.dataset.d1Live = 'true';
   search.textContent = text(button) || 'Search';
   const searchP = document.createElement('p');
   searchP.append(search);

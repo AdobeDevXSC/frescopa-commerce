@@ -8,19 +8,53 @@ import cardsArchParser from './parsers/cards-arch.js';
 import storeLocatorParser from './parsers/store-locator.js';
 import rewardParser from './parsers/reward.js';
 import homepageSectionsTransformer from './transformers/homepage-sections.js';
+import linkRulesTransformer from './transformers/link-rules.js';
+import templateSectionsTransformer from './transformers/template-sections.js';
 
 const PAGE_TEMPLATE = {
-  name: 'homepage',
-  description: 'D1 "The Ritual" homepage: hero, three story scenes, shop cards, store locator, reward (docs/migration/homepage-spec.md)',
-  urls: ['https://frescopa.coffee/'],
-  blocks: [
-    { name: 'hero-arch', instances: ['main .teaser'] },
-    { name: 'story-dawn', instances: ['main .offer'] },
-    { name: 'story-home-cards', instances: ['main .section.home .cards'] },
-    { name: 'cards-arch', instances: ['main .section.card-tiles .cards'] },
-    { name: 'store-locator', instances: ['main .store-locator'] },
-    { name: 'reward', instances: ['main .reward'] },
+  "name": "homepage",
+  "description": "D1 \"The Ritual\" homepage: hero, three story scenes, shop cards, store locator, reward (docs/migration/homepage-spec.md)",
+  "urls": [
+    "https://frescopa.coffee/"
   ],
+  "blocks": [
+    {
+      "name": "hero-arch",
+      "instances": [
+        "main .teaser"
+      ]
+    },
+    {
+      "name": "story-dawn",
+      "instances": [
+        "main .offer"
+      ]
+    },
+    {
+      "name": "story-home-cards",
+      "instances": [
+        "main .section.home .cards"
+      ]
+    },
+    {
+      "name": "cards-arch",
+      "instances": [
+        "main .section.card-tiles .cards"
+      ]
+    },
+    {
+      "name": "store-locator",
+      "instances": [
+        "main .store-locator"
+      ]
+    },
+    {
+      "name": "reward",
+      "instances": [
+        "main .reward"
+      ]
+    }
+  ]
 };
 
 const parsers = {
@@ -31,7 +65,11 @@ const parsers = {
   'store-locator': storeLocatorParser,
   reward: rewardParser,
 };
-const transformers = [homepageSectionsTransformer];
+// section transformers act on their own template only; link rules apply to all
+const transformers = [homepageSectionsTransformer, linkRulesTransformer, templateSectionsTransformer];
+
+// live paths that are migrated under another path (Phase 0 decision D1)
+const PATH_ALIASES = { '/en/tea': '/tea' };
 
 function executeTransformers(hookName, element, payload) {
   const enhancedPayload = { ...payload, template: PAGE_TEMPLATE };
@@ -69,14 +107,17 @@ export default {
 
     executeTransformers('afterTransform', main, payload);
 
-    // metadata stays in the last section (a separate section would render empty)
+    // metadata in its own section: the local preview server only strips it there;
+    // the empty section it leaves after publishing is hidden by styles.css
+    main.appendChild(document.createElement('hr'));
     WebImporter.rules.createMetadata(main, document);
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
-    const rawPath = new URL(params.originalURL).pathname
+    let rawPath = new URL(params.originalURL).pathname
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');
+    rawPath = PATH_ALIASES[rawPath] || rawPath;
     const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
 
     return [{

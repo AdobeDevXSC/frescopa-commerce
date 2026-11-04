@@ -12,7 +12,7 @@
  * stack below the rewards banner (docs/migration/content-inventory.md).
  */
 export default function transform(hookName, element, payload) {
-  if (hookName !== 'afterTransform') return;
+  if (hookName !== 'afterTransform' || payload.template?.name !== 'homepage') return;
   const { document } = payload;
 
   const scenes = [...element.querySelectorAll('[data-d1-order]')]
