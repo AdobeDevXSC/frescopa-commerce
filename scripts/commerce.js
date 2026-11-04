@@ -10,7 +10,6 @@ import { events } from '@dropins/tools/event-bus.js';
 import { FetchGraphQL } from '@dropins/tools/fetch-graphql.js';
 import {
   getMetadata,
-  readBlockConfig,
 } from './aem.js';
 import initializeDropins from './initializers/index.js';
 
@@ -58,18 +57,6 @@ export const CS_FETCH_GRAPHQL = new FetchGraphQL();
 /**
  * Constants
  */
-
-// Environment checks
-export const IS_UE = window.location.hostname.includes('ue.da.live');
-export const IS_DA = new URL(window.location.href).searchParams.has('dapreview');
-
-/**
- * Product template paths - pages that are templates and should use
- * default/fake SKUs. Should be relative to root path, ie "/" , "/fr/" , etc.
- */
-export const PRODUCT_TEMPLATE_PATHS = [
-  'products/default',
-];
 
 // PATHS
 export const SUPPORT_PATH = '/support';
@@ -643,39 +630,6 @@ function getSkuFromUrl() {
 }
 
 /**
- * Extracts the defaultSku property from the product-details block element.
- * @returns {string|null} The defaultSku value from the block, or null if not found
- */
-function getDefaultSkuFromBlock() {
-  const productDetailsBlock = document.querySelector('.product-details.block');
-  if (!productDetailsBlock) {
-    console.warn('No product-details block found');
-    return null;
-  }
-
-  const config = readBlockConfig(productDetailsBlock);
-  if (!config.defaultsku) {
-    console.warn('No defaultSku found in product-details block');
-    return null;
-  }
-  return config.defaultsku;
-}
-
-/**
- * Checks if the current page is a product template page.
- * @returns {boolean} True if the current page matches a product template path
- */
-export function isProductTemplate() {
-  const root = getRootPath();
-  const { pathname } = window.location;
-
-  return PRODUCT_TEMPLATE_PATHS.some((templatePath) => {
-    const fullPath = root ? `${root}${templatePath}` : templatePath;
-    return pathname === fullPath || pathname === fullPath.replace(/\/$/, '');
-  });
-}
-
-/**
  * Renders promotion/discount rule labels for a cart item, keeping them in sync
  * as the item's data changes. Used by the cart, mini-cart, and checkout
  * order-summary line items, which all share the same dropin cart-item context.
@@ -718,10 +672,6 @@ export function getProductLink(urlKey, sku) {
  * @returns {string|null} The SKU from metadata or URL, or null if not found
  */
 export function getProductSku() {
-  if (isProductTemplate() && (IS_UE || IS_DA)) {
-    return getDefaultSkuFromBlock();
-  }
-
   return getMetadata('sku') || getSkuFromUrl();
 }
 
