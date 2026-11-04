@@ -5,7 +5,7 @@
   "data": {
     "sku": "TEA106",
     "name": "Twilight Bliss",
-    "slug": "twilight-bliss",
+    "urlKey": "twilight-bliss",
     "status": "ENABLED",
     "category": "Tea",
     "brand": "Fréscopa",

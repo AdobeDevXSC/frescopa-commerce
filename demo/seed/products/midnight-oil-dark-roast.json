@@ -5,7 +5,7 @@
   "data": {
     "sku": "POD341",
     "name": "Midnight Oil - Dark Roast",
-    "slug": "midnight-oil-dark-roast",
+    "urlKey": "midnight-oil-dark-roast",
     "status": "ENABLED",
     "category": "Coffee Pods",
     "brand": "Fréscopa",

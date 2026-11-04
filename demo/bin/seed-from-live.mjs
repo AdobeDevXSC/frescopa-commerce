@@ -85,7 +85,7 @@ function toDoc(p) {
   const data = {
     sku: p.sku,
     name: p.name,
-    slug: slugify(p.name),
+    urlKey: slugify(p.name),
     status: 'ENABLED',
     category,
     brand: 'Fréscopa',
@@ -110,8 +110,8 @@ async function main() {
   const slugs = new Set();
   const failures = [];
   for (const { data } of docs) {
-    if (slugs.has(data.slug)) failures.push(`${data.sku}: duplicate slug ${data.slug}`);
-    slugs.add(data.slug);
+    if (slugs.has(data.urlKey)) failures.push(`${data.sku}: duplicate urlKey ${data.urlKey}`);
+    slugs.add(data.urlKey);
     const result = validateData({ schema, data });
     Object.entries(result.errors || {}).forEach(([ptr, e]) => failures.push(`${data.sku}${ptr}: ${e.message}`));
   }
@@ -119,16 +119,16 @@ async function main() {
 
   const dir = path.join(SEED_DIR, 'products');
   mkdirSync(dir, { recursive: true });
-  const keep = new Set(docs.map((d) => `${d.data.slug}.json`));
+  const keep = new Set(docs.map((d) => `${d.data.urlKey}.json`));
   readdirSync(dir).filter((f) => f.endsWith('.json') && !keep.has(f)).forEach((f) => {
     unlinkSync(path.join(dir, f));
     console.log(`removed stale ${f}`);
   });
-  docs.forEach((d) => writeFileSync(path.join(dir, `${d.data.slug}.json`), `${JSON.stringify(d, null, 2)}\n`));
+  docs.forEach((d) => writeFileSync(path.join(dir, `${d.data.urlKey}.json`), `${JSON.stringify(d, null, 2)}\n`));
 
   console.table(docs.map(({ data: d }) => ({
     sku: d.sku,
-    slug: d.slug,
+    urlKey: d.urlKey,
     category: d.category,
     price: d.prices[0].regular,
     featured: !!d.featured,

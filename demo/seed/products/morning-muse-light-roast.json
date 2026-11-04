@@ -5,7 +5,7 @@
   "data": {
     "sku": "POD311",
     "name": "Morning Muse - Light Roast",
-    "slug": "morning-muse-light-roast",
+    "urlKey": "morning-muse-light-roast",
     "status": "ENABLED",
     "category": "Coffee Pods",
     "brand": "Fréscopa",

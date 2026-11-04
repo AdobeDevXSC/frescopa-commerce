@@ -21,7 +21,7 @@ test('valid fixture catalog passes', () => {
   assert.deepEqual(r.warnings, []);
 });
 
-for (const field of ['sku', 'name', 'slug', 'status']) {
+for (const field of ['sku', 'name', 'urlKey', 'status']) {
   test(`schema: missing ${field} is an error`, () => {
     const r = mutate((c) => { delete c.products[0].data[field]; });
     assert.equal(r.ok, false);
@@ -34,10 +34,10 @@ test('schema: invalid status enum', () => {
   assert.ok(has(r, /beans.*status|status/i));
 });
 
-test('schema: bad slug pattern', () => {
-  const r = mutate((c) => { c.products[0].data.slug = 'Bad Slug!'; });
+test('schema: bad urlKey pattern', () => {
+  const r = mutate((c) => { c.products[0].data.urlKey = 'Bad Slug!'; });
   assert.equal(r.ok, false);
-  assert.ok(has(r, /slug/));
+  assert.ok(has(r, /urlKey/));
 });
 
 test('duplicate sku', () => {
@@ -45,9 +45,9 @@ test('duplicate sku', () => {
   assert.ok(has(r, /duplicate sku "BEAN-1"/));
 });
 
-test('duplicate slug', () => {
-  const r = mutate((c) => { c.products[1].data.slug = c.products[0].data.slug; });
-  assert.ok(has(r, /duplicate slug "house-beans"/));
+test('duplicate urlKey', () => {
+  const r = mutate((c) => { c.products[1].data.urlKey = c.products[0].data.urlKey; });
+  assert.ok(has(r, /duplicate urlKey "house-beans"/));
 });
 
 test('unknown priceBookId', () => {

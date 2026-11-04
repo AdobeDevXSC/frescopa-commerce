@@ -5,7 +5,7 @@
   "data": {
     "sku": "ACC511",
     "name": "Azure Elegance Milk Jug",
-    "slug": "azure-elegance-milk-jug",
+    "urlKey": "azure-elegance-milk-jug",
     "status": "ENABLED",
     "category": "Accessories",
     "brand": "Fréscopa",

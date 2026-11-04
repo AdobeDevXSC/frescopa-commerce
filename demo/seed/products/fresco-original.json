@@ -5,7 +5,7 @@
   "data": {
     "sku": "CSM5125",
     "name": "Fresco Original",
-    "slug": "fresco-original",
+    "urlKey": "fresco-original",
     "status": "ENABLED",
     "category": "Coffee Machines",
     "brand": "Fréscopa",

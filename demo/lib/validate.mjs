@@ -1,5 +1,5 @@
 // Validates the whole catalog: each product against the schema (da-sc-sdk), plus cross-document rules
-// the form editor cannot check (duplicate SKUs/slugs, unknown price books or attribute codes, settings).
+// the form editor cannot check (duplicate SKUs/URL keys, unknown price books or attribute codes, settings).
 import { validateData, validateSchema } from '@adobe/da-sc-sdk';
 
 const RESERVED_ATTRS = new Set(['brand', 'category']);
@@ -30,7 +30,7 @@ export function validateCatalog({
   }
 
   const seenSku = new Map();
-  const seenSlug = new Map();
+  const seenUrlKey = new Map();
   for (const { path, data } of products) {
     const result = validateData({ schema, data });
     for (const [pointer, e] of Object.entries(result.errors || {})) add(errors, `${path}${pointer.replace(/^\/data/, '')}`, e.message);
@@ -38,9 +38,9 @@ export function validateCatalog({
       if (seenSku.has(data.sku)) add(errors, path, `duplicate sku "${data.sku}" (also in ${seenSku.get(data.sku)})`);
       seenSku.set(data.sku, path);
     }
-    if (data.slug) {
-      if (seenSlug.has(data.slug)) add(errors, path, `duplicate slug "${data.slug}" (also in ${seenSlug.get(data.slug)})`);
-      seenSlug.set(data.slug, path);
+    if (data.urlKey) {
+      if (seenUrlKey.has(data.urlKey)) add(errors, path, `duplicate urlKey "${data.urlKey}" (also in ${seenUrlKey.get(data.urlKey)})`);
+      seenUrlKey.set(data.urlKey, path);
     }
     for (const p of data.prices || []) {
       if (!bookIds.has(p.priceBookId)) add(errors, path, `price book "${p.priceBookId}" is not in settings › price-books`);

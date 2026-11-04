@@ -5,7 +5,7 @@
   "data": {
     "sku": "TEA103",
     "name": "Sunrise Meadow",
-    "slug": "sunrise-meadow",
+    "urlKey": "sunrise-meadow",
     "status": "ENABLED",
     "category": "Tea",
     "brand": "Fréscopa",

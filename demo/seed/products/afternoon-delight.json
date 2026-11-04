@@ -5,7 +5,7 @@
   "data": {
     "sku": "POD351",
     "name": "Afternoon Delight",
-    "slug": "afternoon-delight",
+    "urlKey": "afternoon-delight",
     "status": "ENABLED",
     "category": "Coffee Pods",
     "brand": "Fréscopa",
