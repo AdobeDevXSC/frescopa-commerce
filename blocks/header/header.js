@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { getSession } from '../../scripts/account.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // above this width the primary nav is inline; at or below it collapses behind the menu button
@@ -100,6 +101,25 @@ function buildTools(section) {
   return tools;
 }
 
+const SIGNED_OUT_PATHS = ['/account/sign-in', '/account/create'];
+
+/**
+ * Removes the sign-in and create-account links from the tools of a signed-in visitor.
+ * Matches on the parsed pathname (trailing slash tolerated), never on a substring.
+ * @param {Element} tools The tools container
+ */
+export function hideSignedOutLinks(tools) {
+  tools.querySelectorAll('a[href]').forEach((link) => {
+    let path;
+    try {
+      path = new URL(link.getAttribute('href'), window.location.href).pathname;
+    } catch (e) {
+      return;
+    }
+    if (SIGNED_OUT_PATHS.includes(path.replace(/\/+$/, ''))) link.remove();
+  });
+}
+
 /**
  * loads and decorates the header: skip link, announcement bar, brand, primary nav and tools
  * @param {Element} block The header block element
@@ -187,7 +207,9 @@ export default async function decorate(block) {
     decorateDropdowns(linksSection);
     nav.append(linksSection);
   }
-  nav.append(buildTools(toolsSection));
+  const tools = buildTools(toolsSection);
+  if (getSession()) hideSignedOutLinks(tools);
+  nav.append(tools);
   bar.append(nav);
 
   hamburger.addEventListener('click', () => {
