@@ -3,10 +3,11 @@
     "default": {
       "commerce-endpoint": "https://na1-sandbox.api.commerce.adobe.com/3LDiXsPVdCxnS1spVKtGo3/graphql",
       "adobe-commerce-optimizer": true,
+      "commerce-assets-enabled": true,
       "headers": {
         "cs": {
           "ac-view-id": "623ecb6b-b628-4a50-bb01-ba9ce774d3c4",
-          "ac-price-book-id": "retail"
+          "ac-price-book-id": "guest"
         }
       },
       "analytics": {
