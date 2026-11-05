@@ -101,6 +101,9 @@ const setupCatalogServiceCacheControl = () => {
 
 const setAdobeCommerceOptimizerHeader = (adobeCommerceOptimizer) => {
   if (adobeCommerceOptimizer?.priceBookId) {
+    // config.json seeds the lowercase header; header names are case sensitive, so drop it
+    // or both values get sent ("guest, member") and the catalog returns nothing.
+    CS_FETCH_GRAPHQL.removeFetchGraphQlHeader('ac-price-book-id');
     CS_FETCH_GRAPHQL.setFetchGraphQlHeader('AC-Price-Book-ID', adobeCommerceOptimizer.priceBookId);
   } else {
     CS_FETCH_GRAPHQL.removeFetchGraphQlHeader('AC-Price-Book-ID');
