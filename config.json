@@ -8,7 +8,7 @@
       "headers": {
         "cs": {
           "ac-view-id": "623ecb6b-b628-4a50-bb01-ba9ce774d3c4",
-          "ac-price-book-id": "guest"
+          "AC-Price-Book-ID": "guest"
         }
       },
       "analytics": {

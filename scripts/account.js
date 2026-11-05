@@ -113,11 +113,12 @@ export async function accountApi(path, options = {}) {
   return data;
 }
 
-export async function applySessionPriceBook() {
-  const session = getSession();
-  if (!session) return;
-  const { events } = await import('@dropins/tools/event-bus.js');
+export async function applySessionPriceBook({ storage, events: bus } = {}) {
+  // Always emit, so signed-out visitors get the guest price book after the auth
+  // drop-in's own empty emit has removed the header.
+  const events = bus || (await import('@dropins/tools/event-bus.js')).events;
+  const session = storage ? getSession(storage) : getSession();
   events.emit('auth/adobe-commerce-optimizer', {
-    priceBookId: priceBookFor(session.shopper.group),
+    priceBookId: priceBookFor(session?.shopper?.group),
   });
 }

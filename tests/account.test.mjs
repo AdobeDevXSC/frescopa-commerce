@@ -9,6 +9,7 @@ import {
   safeReturnPath,
   getAccountConfig,
   accountApi,
+  applySessionPriceBook,
 } from '../scripts/account.js';
 
 function fakeStorage() {
@@ -107,4 +108,20 @@ test('accountApi sends demoId in the body and the bearer token, and surfaces err
     () => accountApi('/bad', { method: 'POST', body: {}, fetchFn, storage }),
     (e) => e.status === 409 && e.message === 'Email exists',
   );
+});
+
+test('applySessionPriceBook emits the price book for the session group', async () => {
+  const emitted = [];
+  const events = { emit: (name, data) => emitted.push([name, data]) };
+  const storage = fakeStorage();
+  await applySessionPriceBook({ storage, events });
+  setSession({ token: 't', expiresIn: 60, shopper: { ...shopper, group: 'member' } }, storage);
+  await applySessionPriceBook({ storage, events });
+  setSession({ token: 't', expiresIn: 60, shopper: { ...shopper, group: 'wholesale' } }, storage);
+  await applySessionPriceBook({ storage, events });
+  assert.deepEqual(emitted, [
+    ['auth/adobe-commerce-optimizer', { priceBookId: 'guest' }],
+    ['auth/adobe-commerce-optimizer', { priceBookId: 'member' }],
+    ['auth/adobe-commerce-optimizer', { priceBookId: 'guest' }],
+  ]);
 });
