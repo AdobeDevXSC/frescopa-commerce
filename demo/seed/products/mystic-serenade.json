@@ -5,7 +5,7 @@
   "data": {
     "sku": "TEA105",
     "name": "Mystic Serenade",
-    "slug": "mystic-serenade",
+    "urlKey": "mystic-serenade",
     "status": "ENABLED",
     "category": "Tea",
     "brand": "Fréscopa",

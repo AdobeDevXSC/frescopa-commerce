@@ -5,7 +5,7 @@
   "data": {
     "sku": "HBEX213",
     "name": "House Blend - Expresso",
-    "slug": "house-blend-expresso",
+    "urlKey": "house-blend-expresso",
     "status": "ENABLED",
     "category": "Bagged Coffee",
     "brand": "Fréscopa",

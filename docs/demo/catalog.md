@@ -7,7 +7,7 @@
 - **Products** are DA (da.live) structured-content documents under `/products`, each using the `aco-product` schema (`demo/schema/aco-product.schema.json`). Authors edit them in the DA form editor.
 - **Demo-wide settings** live in one sheet at `/commerce/settings` (locale, SKU prefix, price books, attribute metadata, shoppers).
 - A local Node CLI (`demo/`) validates both and syncs them to ACO with `@adobe-commerce/aco-ts-sdk`.
-- The minimum a product needs: `sku`, `name`, `slug`, `status` (ENABLED or DISABLED). `source.locale` comes from settings. Each product also needs at least one price.
+- The minimum a product needs: `sku`, `name`, `urlKey`, `status` (ENABLED or DISABLED). `source.locale` comes from settings. Each product also needs at least one price.
 
 ## One-time template setup (site owner)
 
@@ -30,7 +30,7 @@ Multi-sheet with these tabs (a single plain sheet is read as the `settings` tab)
 
 ## Editing products
 
-Open a document under `/products` in the form editor: fill in sku, name, slug (lowercase, digits, hyphens), status, category, brand, descriptions, `visibleIn` (CATALOG_AND_SEARCH, CATALOG, SEARCH, HIDDEN), images (https URLs; the first image becomes BASE, SMALL, THUMBNAIL), prices (one per price book id) and extra attributes (code + value). SKUs and slugs must be unique across the catalog. Save, then run `npm run validate`.
+Open a document under `/products` in the form editor: fill in sku, name, urlKey (lowercase, digits, hyphens; the storefront builds `/products/{urlKey}/{sku}` from it, and it is sent to ACO as `slug`), status, category, brand, descriptions, `visibleIn` (CATALOG_AND_SEARCH, CATALOG, SEARCH, HIDDEN), images (https URLs; the first image becomes BASE, SMALL, THUMBNAIL), prices (one per price book id) and extra attributes (code + value). SKUs and URL keys must be unique across the catalog. Save, then run `npm run validate`.
 
 ## ACO prerequisites
 
@@ -48,7 +48,7 @@ Run from `demo/`.
 
 | Command | What it does | Flags |
 | --- | --- | --- |
-| `npm run validate` | Schema and cross-document checks (duplicate SKUs/slugs, unknown price books or attributes) | `--source=local\|da` |
+| `npm run validate` | Schema and cross-document checks (duplicate SKUs/URL keys, unknown price books or attributes) | `--source=local\|da` |
 | `npm run sync` | Push attribute metadata, price books, products and prices to ACO, in that order; only changes are sent | `--source=local\|da`, `--dry-run` (no ACO calls, credentials optional), `--prune` (delete demo SKUs, prices, books and attributes that disappeared), `--force` (resend everything), `--debug` |
 | `npm run verify` | Query the storefront GraphQL per price book and check every searchable demo SKU and its price | `--source=local\|da`, `--view=<catalogViewId>` (default: settings) |
 | `npm run reset` | Delete this demo's prices and products (only SKUs starting with `skuPrefix`) | `--yes` (required), `--all` (also price books and attributes), `--dry-run`, `--source=local\|da` |

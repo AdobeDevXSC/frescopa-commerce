@@ -5,7 +5,7 @@
   "data": {
     "sku": "CSM5122",
     "name": "Frescopa Smart Machine",
-    "slug": "frescopa-smart-machine",
+    "urlKey": "frescopa-smart-machine",
     "status": "ENABLED",
     "category": "Coffee Machines",
     "brand": "Fréscopa",

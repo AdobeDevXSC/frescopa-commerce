@@ -5,7 +5,7 @@
   "data": {
     "sku": "CSM5131",
     "name": "Fresco Deluxe",
-    "slug": "fresco-deluxe",
+    "urlKey": "fresco-deluxe",
     "status": "ENABLED",
     "category": "Coffee Machines",
     "brand": "Fréscopa",

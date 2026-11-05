@@ -5,7 +5,7 @@
   "data": {
     "sku": "ITT743",
     "name": "Insulated Travel Thermos",
-    "slug": "insulated-travel-thermos",
+    "urlKey": "insulated-travel-thermos",
     "status": "ENABLED",
     "category": "Accessories",
     "brand": "Fréscopa",

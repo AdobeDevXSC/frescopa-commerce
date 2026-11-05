@@ -6,7 +6,7 @@ import {
 
 const settings = { locale: 'en-US', skuPrefix: 'P-' };
 const base = {
-  sku: 'A1', name: 'Alpha', slug: 'alpha', status: 'ENABLED',
+  sku: 'A1', name: 'Alpha', urlKey: 'alpha', status: 'ENABLED',
 };
 
 const hasUndefined = (o) => JSON.stringify(o, (k, v) => (v === undefined ? '__UNDEF__' : v)).includes('__UNDEF__');
@@ -18,7 +18,7 @@ test('helpers: round2 and prefixed', () => {
 });
 
 test('toFeedProduct: core fields, prefix, locale, defaults', () => {
-  const p = toFeedProduct({ sku: 'A1', name: 'Alpha', slug: 'alpha' }, { settings });
+  const p = toFeedProduct({ sku: 'A1', name: 'Alpha', urlKey: 'alpha' }, { settings });
   assert.equal(p.sku, 'P-A1');
   assert.deepEqual(p.source, { locale: 'en-US' });
   assert.equal(p.status, 'ENABLED');
@@ -86,7 +86,7 @@ test('toFeedProduct: metaTags title/description', () => {
 });
 
 test('toFeedProduct: no undefined values emitted', () => {
-  const minimal = toFeedProduct({ sku: 'A', name: 'N', slug: 's' }, { settings });
+  const minimal = toFeedProduct({ sku: 'A', name: 'N', urlKey: 's' }, { settings });
   assert.equal(hasUndefined(minimal), false);
   const full = toFeedProduct({
     ...base, brand: 'b', images: [{ url: 'https://x/1.jpg' }], description: 'd',

@@ -5,7 +5,7 @@
   "data": {
     "sku": "ACC341",
     "name": "Compostable Cups",
-    "slug": "compostable-cups",
+    "urlKey": "compostable-cups",
     "status": "ENABLED",
     "category": "Accessories",
     "brand": "Fréscopa",

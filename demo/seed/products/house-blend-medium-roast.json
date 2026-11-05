@@ -5,7 +5,7 @@
   "data": {
     "sku": "HBMR211",
     "name": "House Blend - Medium Roast",
-    "slug": "house-blend-medium-roast",
+    "urlKey": "house-blend-medium-roast",
     "status": "ENABLED",
     "category": "Bagged Coffee",
     "brand": "Fréscopa",

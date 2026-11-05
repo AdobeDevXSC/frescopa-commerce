@@ -7,7 +7,7 @@ Edge Delivery Services. Read a block first. Omissions are in the repo or known.
 - Markup comes from the backend. `curl localhost:3000/x.plain.html` first.
 - `buildAutoBlocks` rewrites content before your block runs.
 - Authors omit and add cells. Decorate defensively.
-- No build step; devDependencies only.
+- No build step; devDependencies only, except the ACO browse-only drop-ins (see "ACO catalog exception"). `npm run install:dropins` vendors them into `scripts/__dropins__` and must be re-run after any `@dropins/*` or `@adobe/*` change.
 - Scope CSS to `.blockname`; `-wrapper`/`-container` are section classes.
 - `fragment/fragment.js` is the only cross-block import. Otherwise use `/scripts/`.
 
@@ -48,10 +48,10 @@ If two sources conflict, stop and ask rather than choosing silently (see "Stop a
 - **Approved copy corrections only** (the complete list of six is in `content-inventory.md`): hero grammar, hero label without its trailing "...", "Bundles", "ZIP code", "Kettles & Carafes" (duplicate removed), and the trimmed rewards body. Anything else stays verbatim, including awkward copy.
 - **The 10% discount offer is not placed** (the live site gives no terms).
 - **No third-party embeds** in the first viewport or anywhere above the fold; no Google Maps embed (the live one is broken). The store locator is a ZIP form plus a static address card.
-- **Commerce is out of scope.** Product detail, cart, checkout, account, login and quiz flows stay on the live site. Link to them with absolute `https://frescopa.coffee/...` URLs. Do not port `commerce-*` blocks or dropins.
+- **Commerce is out of scope.** Product detail, cart, checkout, account, login and quiz flows stay on the live site. Link to them with absolute `https://frescopa.coffee/...` URLs. Do not port `commerce-*` blocks or the cart, checkout, order, account, payment-services and personalization dropins. Exception: the ACO browse-only catalog, below.
 - **Do not edit `scripts/aem.js`.** Keep `scripts/scripts.js` changes minimal and generic.
 - **No files named `media_*` in the code repo.** Code sync returns 404 for them. (Authored images go through DA and the media bus, which is fine.)
-- **No inline `<script>`, inline `style=""`, or `!important`** in blocks. No new runtime dependencies. No frameworks, no animation libraries (no Lenis, GSAP).
+- **No inline `<script>`, inline `style=""`, or `!important`** in blocks. No new runtime dependencies beyond the ACO exception. No frameworks outside the vendored drop-ins (Preact inside `scripts/__dropins__` only; never in site blocks), no animation libraries (no Lenis, GSAP).
 - **Do not push to or merge into `main`.** Work on branches named `migrate/<topic>` and open PRs with the `.aem.page` preview link. Do not publish content live without being asked.
 - Keep secrets out of git: `.env`, `.env.*`, `.DS_Store`, `qa/` must be in `.gitignore` before any token is created.
 
@@ -86,6 +86,17 @@ Full mapping in `docs/migration/homepage-spec.md`.
 - Keyboard: when focus enters a scene, force it to its final state (`--p = 1`) and keep it locked until focus leaves.
 - No JS-hidden content: nothing is `opacity: 0` unless the enhancement class is present.
 
+## ACO catalog exception (browse-only)
+Approved: product listing, search, product detail and recommendations read from Adobe Commerce Optimizer. Plan: `docs/demo/aco-storefront-audit.md`.
+- Allowed drop-ins: `storefront-product-discovery`, `-pdp`, `-recommendations`, `-auth`, `-cart`, `-wishlist` and `tools`, plus `@adobe/adobe-client-data-layer` and the Adobe event SDK and collector. `auth`, `cart` and `wishlist` are present only because the upstream blocks import them. They are not a commerce backend.
+- Allowed blocks and scripts: `product-list-page`, `product-details`, `product-recommendations`, `modal`, `scripts/commerce.js`, `scripts/initializers/`. Keep them close to upstream `hlxsites/aem-boilerplate-commerce` so they can be diffed.
+- Buy, cart, checkout and account links go to absolute `https://frescopa.coffee/...` URLs.
+- Config is `config.json` (ACO endpoint, view id, price book). Public values only. Client id/secret live in the gitignored `demo/.env`, never in git.
+- Commerce loads only on pages that contain one of the commerce blocks (`isCommercePage` in `scripts/scripts.js`). Other pages must not need it.
+- `scripts/__dropins__` is vendored output: do not hand-edit, and keep it in `.eslintignore`. Do not commit `*.map`.
+- Drop-in CSS keeps its BEM class names (stylelint `selector-class-pattern` is off). Site-authored CSS still follows the Hard rules.
+- Third-party analytics (event SDK) loads only after consent, via `scripts/consented.js`.
+
 ## Definition of done (every PR)
 - `npm run lint` passes.
 - PR description has the `{branch}--frescopa-commerce--AdobeDevXSC.aem.page/{path}` link(s) for every page touched.
@@ -100,4 +111,5 @@ Stop and ask the human, with a specific question, when:
 - A page is commerce-driven, interactive (quiz) or personalised and the right handling is unclear.
 - Copy is missing, contradictory, or looks wrong beyond the approved corrections.
 - A block would need a third-party script, a library, or a change to `scripts/aem.js`.
+- ACO work would add a drop-in beyond the approved list, a `commerce-core-endpoint`, or a cart/checkout/account flow.
 - You are about to merge, push to `main`, publish live, or delete anything.

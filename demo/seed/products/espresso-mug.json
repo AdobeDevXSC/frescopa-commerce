@@ -5,7 +5,7 @@
   "data": {
     "sku": "ACC563",
     "name": "Espresso Mug",
-    "slug": "espresso-mug",
+    "urlKey": "espresso-mug",
     "status": "ENABLED",
     "category": "Accessories",
     "brand": "Fréscopa",

@@ -14,6 +14,12 @@ import {
   toCamelCase,
   toClassName,
 } from './aem.js';
+import {
+  initializeCommerce,
+  loadCommerceEager,
+  loadCommerceLazy,
+  loadErrorPage,
+} from './commerce.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -179,6 +185,18 @@ export function decorateMain(main) {
   decorateButtons(main);
 }
 
+const COMMERCE_BLOCKS = '.product-list-page, .product-details, .product-recommendations';
+
+/**
+ * Whether the page needs the commerce runtime (ACO catalog drop-ins).
+ * Other pages never load it, so they work without a config.json.
+ * @param {Element} main The main element
+ * @returns {boolean}
+ */
+function isCommercePage(main) {
+  return !!main && !!main.querySelector(COMMERCE_BLOCKS);
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -188,7 +206,18 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    decorateMain(main);
+    if (isCommercePage(main)) {
+      try {
+        await initializeCommerce();
+        decorateMain(main);
+        await loadCommerceEager();
+      } catch (e) {
+        console.error('Error initializing commerce configuration:', e);
+        loadErrorPage(418);
+      }
+    } else {
+      decorateMain(main);
+    }
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
@@ -212,6 +241,7 @@ async function loadLazy(doc) {
 
   const main = doc.querySelector('main');
   await loadSections(main);
+  if (isCommercePage(main)) await loadCommerceLazy();
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

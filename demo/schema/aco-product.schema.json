@@ -58,7 +58,7 @@
   },
   "type": "object",
   "title": "ACO Product",
-  "required": ["sku", "name", "slug", "status"],
+  "required": ["sku", "name", "urlKey", "status"],
   "properties": {
     "sku": {
       "type": "string",
@@ -73,9 +73,9 @@
       "minLength": 2,
       "maxLength": 120
     },
-    "slug": {
+    "urlKey": {
       "type": "string",
-      "title": "URL slug",
+      "title": "URL key (used in /products/{url-key}/{sku}; sent to ACO as slug)",
       "minLength": 2,
       "maxLength": 80,
       "pattern": "^[a-z0-9-]+$"

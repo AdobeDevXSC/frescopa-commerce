@@ -5,7 +5,7 @@
   "data": {
     "sku": "HBDR212",
     "name": "House Blend - Dark Roast",
-    "slug": "house-blend-dark-roast",
+    "urlKey": "house-blend-dark-roast",
     "status": "ENABLED",
     "category": "Bagged Coffee",
     "brand": "Fréscopa",

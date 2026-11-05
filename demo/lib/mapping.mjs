@@ -29,7 +29,7 @@ export function toFeedProduct(data, { settings }) {
     sku: prefixed(settings.skuPrefix, data.sku),
     source: { locale: settings.locale },
     name: data.name,
-    slug: data.slug,
+    slug: data.urlKey,
     status: data.status || 'ENABLED',
     visibleIn: VISIBLE[data.visibleIn || 'CATALOG_AND_SEARCH'] ?? VISIBLE.CATALOG_AND_SEARCH,
   };

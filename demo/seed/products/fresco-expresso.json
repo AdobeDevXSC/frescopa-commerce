@@ -5,7 +5,7 @@
   "data": {
     "sku": "CSM5148",
     "name": "Fresco Expresso",
-    "slug": "fresco-expresso",
+    "urlKey": "fresco-expresso",
     "status": "ENABLED",
     "category": "Coffee Machines",
     "brand": "Fréscopa",

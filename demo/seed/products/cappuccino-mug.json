@@ -5,7 +5,7 @@
   "data": {
     "sku": "ACC558",
     "name": "Cappuccino Mug",
-    "slug": "cappuccino-mug",
+    "urlKey": "cappuccino-mug",
     "status": "ENABLED",
     "category": "Accessories",
     "brand": "Fréscopa",
