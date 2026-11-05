@@ -47,6 +47,10 @@ Why it is cheap to build: ACO already has `guest` and `member` price books, and 
 4. Sign-out is client-side (drop the token). Tokens are valid for one hour.
 5. Tests and docs: unit tests for both actions (including "group other than guest/member is rejected" and "email failure does not fail sign-up"), additions to `e2e/curl-e2e.sh`, README sections for the new endpoints and inputs. Deploy to the **stage** workspace only.
 
+### Registration (first step of the plan) **[decided: register it as part of the plan]**
+
+The site is not known to be registered, so step one is to register it with `registry/register` on the stage workspace: `customer` ("Fréscopa"), `scEmail` (the presenter's address, supplied by the user at run time), `repo` (`AdobeDevXSC/frescopa-commerce`), `daSite` (`frescopa-commerce`), and `hosts` (`main--frescopa-commerce--adobedevxsc.aem.page`, `main--frescopa-commerce--adobedevxsc.aem.live`, plus any branch preview hosts needed for testing). The call is IMS-authenticated, so the user runs it with their own `aio login` token or supplies the token to a script; no token is stored in git. It is idempotent: registering the same repo again returns the same `demoId`. The returned `demoId` then goes into `config.json` (an identifier, not a secret). The stage base URL also goes into the public `config.json` **[my call: acceptable; it is a public, CORS-limited endpoint with no secrets]**.
+
 ### Storefront: `frescopa-commerce`
 
 - Three blocks and three DA pages: `create-account` (`/account/create`), `sign-in` (`/account/sign-in`), `account` (`/account`) **[my call: block names and paths]**. D1 styling, scoped CSS, accessible forms (labels, inline errors, focus rings, 44px targets), no inline script/style, no `!important`.
@@ -79,5 +83,5 @@ File and class names, exact error wording (kept short and plain), form validatio
 ## Open items that only the user can answer
 
 - Sender email address and provider account for the welcome email.
-- Whether this site (`frescopa-commerce`) is already registered in the service's registry and what its `demoId` is.
+- Running the registration with their own IMS token (the plan provides the exact command).
 - Approval of the welcome-email wording.
