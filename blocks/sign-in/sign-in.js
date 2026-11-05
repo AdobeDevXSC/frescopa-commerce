@@ -20,6 +20,7 @@ function field(id, label, type, autocomplete) {
   Object.assign(input, {
     id, name: id, type, autocomplete, required: true,
   });
+  if (type === 'password') input.maxLength = 128;
   wrap.append(lbl, input);
   return wrap;
 }

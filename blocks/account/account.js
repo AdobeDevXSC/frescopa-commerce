@@ -3,7 +3,7 @@ import {
 } from '../../scripts/account.js';
 
 const SIGN_IN_PATH = '/account/sign-in?return=/account';
-const MEMBERSHIP_PATH = 'shopper/membership';
+const MEMBERSHIP_PATH = '/shopper/membership';
 const HOME_PATH = '/';
 
 function row(label, value) {

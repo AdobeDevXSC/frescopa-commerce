@@ -125,3 +125,85 @@ test('applySessionPriceBook emits the price book for the session group', async (
     ['auth/adobe-commerce-optimizer', { priceBookId: 'guest' }],
   ]);
 });
+
+function apiStub({ apiBase = 'https://api.example', respond } = {}) {
+  const calls = [];
+  const fetchFn = async (url, init) => {
+    if (url === '/config.json') {
+      return { ok: true, json: async () => ({ public: { default: { 'shopper-api': apiBase, 'demo-id': 'd1' } } }) };
+    }
+    calls.push({ url, init });
+    return respond ? respond(url, init) : { ok: true, status: 200, json: async () => ({ ok: 1 }) };
+  };
+  return { fetchFn, calls };
+}
+
+test('accountApi POST builds the exact URL, JSON body with demoId, and no Authorization', async () => {
+  const cases = [
+    ['https://api.example', '/shopper/signup'],
+    ['https://api.example/', '/shopper/signup'],
+    ['https://api.example//', 'shopper/signup'],
+  ];
+  for (const [apiBase, path] of cases) {
+    const { fetchFn, calls } = apiStub({ apiBase });
+    // eslint-disable-next-line no-await-in-loop
+    await accountApi(path, {
+      method: 'POST', body: { email: 'a@b.co' }, fetchFn, storage: fakeStorage(),
+    });
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, 'https://api.example/shopper/signup');
+    assert.equal(calls[0].init.method, 'POST');
+    assert.equal(calls[0].init.headers['Content-Type'], 'application/json');
+    assert.equal(calls[0].init.headers.Authorization, undefined);
+    assert.deepEqual(JSON.parse(calls[0].init.body), { email: 'a@b.co', demoId: 'd1' });
+  }
+});
+
+test('accountApi GET puts demoId in the query string, not a body', async () => {
+  const { fetchFn, calls } = apiStub();
+  await accountApi('/shopper/membership', { fetchFn, storage: fakeStorage() });
+  assert.equal(calls[0].url, 'https://api.example/shopper/membership?demoId=d1');
+  assert.equal(calls[0].init.body, undefined);
+});
+
+test('accountApi auth:true sends the bearer token', async () => {
+  const { fetchFn, calls } = apiStub();
+  const storage = fakeStorage();
+  setSession({ token: 'tok', expiresIn: 60, shopper }, storage);
+  await accountApi('/shopper/me', { auth: true, fetchFn, storage });
+  assert.equal(calls[0].init.headers.Authorization, 'Bearer tok');
+});
+
+test('accountApi auth:true without a session throws 401 and makes no API call', async () => {
+  const { fetchFn, calls } = apiStub();
+  await assert.rejects(
+    () => accountApi('/shopper/me', { auth: true, fetchFn, storage: fakeStorage() }),
+    (e) => e instanceof Error && e.status === 401,
+  );
+  assert.equal(calls.length, 0);
+});
+
+test('accountApi surfaces the service error message and HTTP status', async () => {
+  const { fetchFn } = apiStub({
+    respond: async () => ({ ok: false, status: 409, json: async () => ({ error: 'msg' }) }),
+  });
+  await assert.rejects(
+    () => accountApi('/shopper/signup', { method: 'POST', body: {}, fetchFn }),
+    (e) => e instanceof Error && e.message === 'msg' && e.status === 409,
+  );
+});
+
+test('accountApi keeps the HTTP status when the error body is null', async () => {
+  const { fetchFn } = apiStub({
+    respond: async () => ({ ok: false, status: 500, json: async () => null }),
+  });
+  await assert.rejects(
+    () => accountApi('/shopper/signup', { method: 'POST', body: {}, fetchFn }),
+    (e) => e instanceof Error && e.status === 500 && e.message === 'Something went wrong',
+  );
+});
+
+test('safeReturnPath rejects whitespace-then-double-slash and accepts an encoded backslash', () => {
+  assert.equal(safeReturnPath('/ \t//evil.com'), '/account');
+  assert.equal(safeReturnPath('/%5Cevil.com'), '/%5Cevil.com');
+});

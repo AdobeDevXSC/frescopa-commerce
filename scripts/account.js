@@ -82,7 +82,7 @@ export async function accountApi(path, options = {}) {
   const { apiBase, demoId } = await getAccountConfig(fetchFn);
   const headers = { Accept: 'application/json' };
   const init = { method, headers };
-  let url = `${apiBase}${path}`;
+  let url = `${apiBase}${path.startsWith('/') ? '' : '/'}${path}`;
   if (method === 'GET') {
     url += `${url.includes('?') ? '&' : '?'}demoId=${encodeURIComponent(demoId)}`;
   } else {
@@ -106,7 +106,7 @@ export async function accountApi(path, options = {}) {
     data = {};
   }
   if (!resp.ok) {
-    const err = new Error(data.error || 'Something went wrong');
+    const err = new Error(data?.error || 'Something went wrong');
     err.status = resp.status;
     throw err;
   }
