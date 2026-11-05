@@ -14,12 +14,6 @@ import {
   toCamelCase,
   toClassName,
 } from './aem.js';
-import {
-  initializeCommerce,
-  loadCommerceEager,
-  loadCommerceLazy,
-  loadErrorPage,
-} from './commerce.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -198,6 +192,28 @@ function isCommercePage(main) {
 }
 
 /**
+ * Starts the commerce network work (config and module graph) in parallel.
+ * Only runs on pages with a commerce block, so other pages never load it.
+ */
+function warmCommerce() {
+  const hints = [
+    ['preload', '/config.json', { as: 'fetch', crossOrigin: 'anonymous' }],
+    ['modulepreload', `${window.hlx.codeBasePath}/scripts/commerce.js`],
+    ['modulepreload', `${window.hlx.codeBasePath}/scripts/initializers/auth.js`],
+    ['modulepreload', `${window.hlx.codeBasePath}/scripts/initializers/cart.js`],
+    ['modulepreload', `${window.hlx.codeBasePath}/scripts/initializers/pdp.js`],
+    ['modulepreload', `${window.hlx.codeBasePath}/scripts/initializers/wishlist.js`],
+  ];
+  hints.forEach(([rel, href, attrs]) => {
+    const link = document.createElement('link');
+    link.rel = rel;
+    link.href = href;
+    Object.assign(link, attrs);
+    document.head.append(link);
+  });
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
@@ -207,13 +223,15 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     if (isCommercePage(main)) {
+      const commerce = import('./commerce.js');
       try {
+        const { initializeCommerce, loadCommerceEager } = await commerce;
         await initializeCommerce();
         decorateMain(main);
         await loadCommerceEager();
       } catch (e) {
         console.error('Error initializing commerce configuration:', e);
-        loadErrorPage(418);
+        (await commerce).loadErrorPage(418);
       }
     } else {
       decorateMain(main);
@@ -241,7 +259,7 @@ async function loadLazy(doc) {
 
   const main = doc.querySelector('main');
   await loadSections(main);
-  if (isCommercePage(main)) await loadCommerceLazy();
+  if (isCommercePage(main)) await (await import('./commerce.js')).loadCommerceLazy();
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
@@ -272,4 +290,5 @@ async function loadPage() {
   loadDelayed();
 }
 
+if (isCommercePage(document.querySelector('main'))) warmCommerce();
 loadPage();
