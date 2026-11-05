@@ -97,6 +97,12 @@ Approved: product listing, search, product detail and recommendations read from 
 - Drop-in CSS keeps its BEM class names (stylelint `selector-class-pattern` is off). Site-authored CSS still follows the Hard rules.
 - Third-party analytics (event SDK) loads only after consent, via `scripts/consented.js`.
 
+## Demo accounts (approved)
+- Sign-up, sign-in and the member switch are allowed, through the `frescopa-demo-services` App Builder app (`shopper-api` and `demo-id` in `config.json`, public values only).
+- The welcome email provider is an approved server-side service. No email or third-party script runs in the browser.
+- The session token lives in `sessionStorage` (`scripts/account.js`), never in `localStorage` or a cookie. Only `guest` and `member` price books are used.
+- The `commerce-*` blocks, cart, checkout and the account/order dropins stay out of scope. Account pages are plain blocks (`create-account`, `sign-in`, `account`).
+
 ## Definition of done (every PR)
 - `npm run lint` passes.
 - PR description has the `{branch}--frescopa-commerce--AdobeDevXSC.aem.page/{path}` link(s) for every page touched.

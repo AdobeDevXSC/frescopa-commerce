@@ -20,7 +20,7 @@
     ],
     "prices": [
       {
-        "priceBookId": "retail",
+        "priceBookId": "guest",
         "regular": 399
       }
     ]

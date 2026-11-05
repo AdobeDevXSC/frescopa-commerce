@@ -99,7 +99,7 @@ function toDoc(p) {
   if (img) data.images = [{ url: img.url.replace(/^http:/, 'https:'), label: p.name, role: 'BASE' }];
   const value = p.price?.regular?.amount?.value;
   if (value === undefined || value === null) throw new Error(`No price for ${p.sku}`);
-  data.prices = [{ priceBookId: 'retail', regular: value }];
+  data.prices = [{ priceBookId: 'guest', regular: value }];
   return { metadata: { schemaName: SCHEMA_NAME }, data };
 }
 

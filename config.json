@@ -3,6 +3,7 @@
     "default": {
       "commerce-endpoint": "https://na1-sandbox.api.commerce.adobe.com/3LDiXsPVdCxnS1spVKtGo3/graphql",
       "adobe-commerce-optimizer": true,
+      "shopper-api": "https://1394629-956scarletgorilla-stage.adobeio-static.net/api/v1/web",
       "commerce-assets-enabled": true,
       "headers": {
         "cs": {
