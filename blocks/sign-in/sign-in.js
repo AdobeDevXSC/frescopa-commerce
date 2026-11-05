@@ -2,6 +2,8 @@ import {
   accountApi, getSession, safeReturnPath, setSession,
 } from '../../scripts/account.js';
 
+const CREATE_PATH = '/account/create';
+
 const MESSAGES = {
   409: 'That email already has an account',
   401: 'Invalid email or password',
@@ -56,7 +58,7 @@ export default function decorate(block) {
   const other = document.createElement('p');
   other.className = 'sign-in-switch';
   const link = document.createElement('a');
-  link.href = returnParam ? `/create-account?return=${encodeURIComponent(returnParam)}` : '/create-account';
+  link.href = returnParam ? `${CREATE_PATH}?return=${encodeURIComponent(returnParam)}` : CREATE_PATH;
   link.textContent = 'Create an account';
   other.append('New here? ', link);
 
