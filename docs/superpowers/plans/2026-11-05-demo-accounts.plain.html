@@ -1,0 +1,263 @@
+<div><h1 id="demo-accounts-implementation-plan">Demo Accounts Implementation Plan</h1><blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote><p><strong>Goal:</strong> Let a visitor create an account, sign in, and switch "member" on and off so product pages show member prices, using the existing App Builder app <code>frescopa-demo-services</code> and the <code>frescopa-commerce</code> storefront.</p><p><strong>Architecture:</strong> Two new public actions (<code>shopper/signup</code>, <code>shopper/membership</code>) and a welcome-email helper join the existing shopper API (scrypt passwords, HS256 JWT, CORS, rate limits). The storefront adds one small module <code>scripts/account.js</code> (session, API client, group to price book), three blocks (<code>create-account</code>, <code>sign-in</code>, <code>account</code>), header links, and one line in <code>scripts/scripts.js</code> that applies the session's price book after commerce initialisation.</p><p><strong>Tech Stack:</strong> Service: Node 22 App Builder actions, <code>@adobe/aio-lib-db</code>, Jest with the in-memory fake db. Storefront: vanilla ES modules, <code>node --test</code> for pure helpers, stylelint/eslint, Playwright (ad hoc, not saved) for browser checks.</p><p><strong>Spec:</strong> <code>docs/superpowers/specs/2026-11-05-demo-accounts-design.md</code></p><p>Repos: <strong>SVC</strong> = <code>/Users/lamont/Workspace/frescopa-demo-services</code> (branch <code>feature/self-service-accounts</code>), <strong>SITE</strong> = this repo (branch <code>migrate/accounts-design</code>, then <code>migrate/accounts-site</code> for code).</p><h2 id="global-constraints">Global Constraints</h2><ul>
+<li>Group values for self-service: <code>guest</code> (default) and <code>member</code> only. Price books: <code>guest</code> and <code>member</code>.</li>
+<li>Passwords: 8 to 128 characters (<code>v.password</code>), stored only as <code>scrypt$...</code> hashes. Never log passwords, tokens, API keys or <code>JWT_SECRET</code>.</li>
+<li>Token: HS256, 1 hour, claims <code>demoId, shopperId, group</code>; no refresh action.</li>
+<li>Sign-up limits: 5 per minute per IP (<code>SIGNUP_RATE_LIMIT_IP</code>), 200 self-service shoppers per demo (<code>MAX_SELF_SIGNUPS</code>).</li>
+<li>A welcome-email failure never fails sign-up; email call times out after 3 seconds.</li>
+<li>Service errors are <code>{ "error": "message" }</code>; this API never returns <code>403</code>.</li>
+<li>Storefront: no inline <code>&#x3C;script></code>, inline <code>style=""</code>, or <code>!important</code>; CSS scoped to <code>.blockname</code>; the only cross-block import is <code>fragment/fragment.js</code>, shared code lives in <code>/scripts/</code>; <code>scripts/aem.js</code> untouched; <code>scripts/scripts.js</code> changes minimal.</li>
+<li>Accessibility: labelled inputs, inline errors announced with <code>role="alert"</code>, 44px targets, visible focus ring, one <code>h1</code> per page.</li>
+<li>UI strings (exact): <code>Create account</code>, <code>Sign in</code>, <code>Your account</code>, <code>Name</code>, <code>Email</code>, <code>Password</code>, <code>Member</code>, <code>Sign out</code>, <code>Already have an account? Sign in</code>, <code>New here? Create an account</code>. Welcome-email wording is drafted by the implementer and approved by the user before deploy (Task 4).</li>
+<li>No secrets in git in either repo. Deploy to the <strong>stage</strong> workspace only.</li>
+</ul><h2 id="review-focus">Review Focus</h2><ul>
+<li><code>return</code> query parameter on the sign-in and create-account pages must only allow same-origin paths (<code>/x</code>, not <code>//host</code> or <code>https://...</code>): otherwise it is an open redirect. Test in Task 6.</li>
+<li>Double-click or repeated submit on the forms must not create two accounts or two emails: the button is disabled while pending, and a repeat returns <code>409</code>. Tests in Tasks 1 and 6.</li>
+<li>Email provider down, slow or misconfigured must still return <code>201</code> with a working token. Test in Task 4.</li>
+<li>Token expiring mid-demo: the account page and price-book code treat an expired or <code>401</code> session as signed out and send the person to sign in with <code>return</code> set. Test in Tasks 5 and 7.</li>
+<li>Body tampering on membership: <code>member</code> not a boolean, or an extra <code>group</code> field, must not change anything other than guest/member. Test in Task 3.</li>
+</ul></div>
+<div><h2 id="part-a-service-svc">Part A: Service (SVC)</h2><h3 id="task-1-registration-and-shoppersignup">Task 1: Registration and <code>shopper/signup</code></h3><p><strong>Files:</strong></p><ul>
+<li>Modify: <code>actions/lib/validate.js</code> (no change expected; confirm <code>str</code>, <code>email</code>, <code>password</code> are exported), <code>app.config.yaml</code> (add <code>signup</code> under package <code>shopper</code>)</li>
+<li>Create: <code>actions/shopper/signup/index.js</code></li>
+<li>Test: <code>test/signup.test.js</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Produces: web action <code>shopper/signup</code>, <code>POST {demoId, name, email, password}</code> returning <code>201 { token, expiresIn, shopper: { shopperId, email, name, group: 'guest' } }</code>; shopper doc gets <code>source: 'signup'</code>. Errors: <code>400</code> invalid input, <code>409</code> email exists, <code>404</code> demo not found or archived (from <code>publicAction</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Register this site (user-run, once).</strong> The user runs <code>aio login</code>, then <code>POST registry/register</code> on the stage base URL with <code>{customer: "Fréscopa", scEmail: &#x3C;their address>, repo: "AdobeDevXSC/frescopa-commerce", daSite: "frescopa-commerce", hosts: ["main--frescopa-commerce--adobedevxsc.aem.page", "main--frescopa-commerce--adobedevxsc.aem.live"]}</code> (add branch preview hosts used for testing, e.g. <code>migrate-accounts-site--frescopa-commerce--adobedevxsc.aem.page</code>). Record the returned <code>demoId</code> for Task 7. Expected: <code>201</code> the first time, <code>200</code> and the same id on repeat.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Write failing tests</strong> in <code>test/signup.test.js</code>, following the setup pattern of <code>test/shopper.test.js</code> (mock <code>withDb</code>, <code>createFakeDb</code>, register a demo):</p>
+<ul>
+<li><code>signup creates a guest and returns a working token</code>: assert <code>201</code>, <code>body.shopper.group === 'guest'</code>, <code>jwt.verify(body.token, SECRET).group === 'guest'</code>, and <code>shopper/me</code> with that token returns the same email.</li>
+<li><code>stores a scrypt hash and source "signup"</code>: assert <code>docs[0].passwordHash.startsWith('scrypt$')</code>, <code>docs[0].source === 'signup'</code>, no plain password anywhere in <code>JSON.stringify(docs)</code>.</li>
+<li><code>lowercases email and rejects a duplicate with 409</code>: sign up <code>Jo@Example.com</code>, then <code>jo@example.com</code> returns <code>409</code>.</li>
+<li><code>rejects short password, bad email, missing name with 400</code>.</li>
+<li><code>unknown or archived demo returns 404</code>; <code>origin not allowed returns 400</code>.</li>
+<li><code>writes a shopper.signup audit event</code> (no password or token in it).</li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Run <code>npm test -- signup</code> and confirm the tests fail</strong> (module not found).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Implement <code>actions/shopper/signup/index.js</code></strong> with <code>publicAction('shopper-signup', fn, { login: true })</code> (no JWT required). Use <code>v.email</code>, <code>v.password</code>, <code>v.str(params.name, 'name', { max: 120 })</code>; <code>crypto.randomUUID()</code> for <code>shopperId</code>; <code>hashPassword</code>; insert <code>{ shopperId, demoId, email, name, group: 'guest', passwordHash, source: 'signup', createdAt }</code>; sign with <code>jwt.sign({ demoId, shopperId, group }, params.JWT_SECRET)</code>; audit <code>shopper.signup</code>. Add the manifest entry copying <code>login</code>'s inputs and annotations (<code>web-custom-options: true</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 5: Run <code>npm test</code>.</strong> Expected: all pass (existing 46 plus new).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 6: Commit</strong> <code>feat: self-service shopper signup</code>.</p>
+</li>
+</ul><h3 id="task-2-sign-up-limits">Task 2: Sign-up limits</h3><p><strong>Files:</strong></p><ul>
+<li>Modify: <code>actions/shopper/signup/index.js</code>, <code>app.config.yaml</code> (add inputs <code>SIGNUP_RATE_LIMIT_IP</code>, <code>MAX_SELF_SIGNUPS</code> to <code>signup</code>)</li>
+<li>Test: <code>test/signup.test.js</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Consumes: <code>hit(db, key, limit)</code> from <code>actions/lib/ratelimit.js</code>; <code>clientIp(params)</code> from <code>actions/lib/http.js</code>.</p>
+</li>
+<li>
+<p>Produces: signup returns <code>429 { error: 'rate limit exceeded, retry shortly' }</code> after the per-IP limit and <code>429 { error: 'sign-up limit reached for this demo' }</code> at the cap.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Write failing tests:</strong> <code>sixth signup from one IP within a minute returns 429</code> (limit 5, different emails); <code>limit is configurable via SIGNUP_RATE_LIMIT_IP</code>; <code>signup at the per-demo cap returns 429</code> (set <code>MAX_SELF_SIGNUPS: 2</code>, third signup fails; admin-created shoppers do not count because only <code>source: 'signup'</code> is counted); <code>a second demo is unaffected</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Run and confirm failures.</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Implement</strong> in <code>signup</code>: before inserting, <code>await hit(db, \</code>signup-ip:${clientIp(params)}`, parseInt(params.SIGNUP_RATE_LIMIT_IP, 10) || 5)<code>, then </code>countDocuments({ demoId, source: 'signup' }) >= (parseInt(params.MAX_SELF_SIGNUPS, 10) || 200)<code>throws</code>HttpError(429, 'sign-up limit reached for this demo')`.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Run <code>npm test</code>; commit</strong> <code>feat: sign-up rate limit and per-demo cap</code>.</p>
+</li>
+</ul><h3 id="task-3-shoppermembership">Task 3: <code>shopper/membership</code></h3><p><strong>Files:</strong></p><ul>
+<li>Create: <code>actions/shopper/membership/index.js</code></li>
+<li>Modify: <code>app.config.yaml</code> (action under <code>shopper</code>, JWT required: use <code>publicAction</code> default, not <code>login</code>)</li>
+<li>Test: <code>test/membership.test.js</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Produces: <code>POST {demoId, member: boolean}</code> with <code>Authorization: Bearer &#x3C;token></code> returning <code>200 { token, expiresIn, shopper }</code> with <code>group</code> <code>'member'</code> or <code>'guest'</code> and a fresh token carrying the new group. <code>409 { error: 'membership is not available for this account' }</code> when the stored group is neither <code>guest</code> nor <code>member</code>. <code>400</code> when <code>member</code> is not a boolean.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Write failing tests:</strong> <code>member true sets group member and returns a token with group member</code>; <code>member false sets guest</code>; <code>no token returns 401</code>; <code>a token for another demo returns 401</code>; <code>member "true" (string), 1, null or missing returns 400 and leaves the group unchanged</code>; <code>an extra group field in the body is ignored</code> (body <code>{ member: true, group: 'wholesale' }</code> ends with <code>group === 'member'</code>); <code>a shopper whose group is wholesale returns 409 and the group stays wholesale</code>; <code>the shopper is taken from the token, not the body</code> (a <code>shopperId</code> in the body is ignored); <code>writes a shopper.membership audit event</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Run and confirm failures.</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Implement</strong> with <code>publicAction('shopper-membership', fn)</code>: read <code>claims.shopperId</code>, load the shopper (<code>401 shopper no longer exists</code> if gone), check <code>typeof params.member === 'boolean'</code> (JSON body only), check stored group in <code>['guest','member']</code>, <code>updateOne({ demoId, shopperId }, { $set: { group } })</code>, sign a new token, audit.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Run <code>npm test</code>; commit</strong> <code>feat: self-service membership switch</code>.</p>
+</li>
+</ul><h3 id="task-4-welcome-email">Task 4: Welcome email</h3><p><strong>Files:</strong></p><ul>
+<li>Create: <code>actions/lib/email.js</code>, <code>actions/lib/welcome-copy.js</code></li>
+<li>Modify: <code>actions/shopper/signup/index.js</code>, <code>app.config.yaml</code> (inputs <code>EMAIL_API_KEY: $EMAIL_API_KEY</code>, <code>EMAIL_FROM: $EMAIL_FROM</code>, <code>EMAIL_FROM_NAME: $EMAIL_FROM_NAME</code> on <code>signup</code>)</li>
+<li>Test: <code>test/email.test.js</code>, <code>test/signup.test.js</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Produces: <code>sendWelcome(params, { to, name }): Promise&#x3C;boolean></code> in <code>actions/lib/email.js</code>. Returns <code>true</code> when the provider accepts, <code>false</code> on any error, missing config or a 3 second timeout; never throws; never logs the key. <code>welcomeMessage(name): { subject: string, text: string }</code> in <code>actions/lib/welcome-copy.js</code>.</p>
+</li>
+<li>
+<p>Uses the global <code>fetch</code> and an <code>AbortController</code>. Default provider call (Brevo): <code>POST https://api.brevo.com/v3/smtp/email</code>, header <code>api-key</code>, body <code>{ sender: { email, name }, to: [{ email, name }], subject, textContent }</code>. The implementer confirms the request shape against the provider's current documentation before deploy.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Write failing tests</strong> in <code>test/email.test.js</code> with <code>global.fetch</code> mocked: <code>posts to the provider with the key in a header and the shopper's email and name in the body</code>; <code>returns false and does not throw when fetch rejects</code>; <code>returns false on a non-2xx response</code>; <code>returns false when the call exceeds 3 seconds</code> (fake timers); <code>returns false and makes no call when EMAIL_API_KEY or EMAIL_FROM is missing</code>; <code>the key never appears in any console output</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Add to <code>test/signup.test.js</code>:</strong> <code>sign-up returns 201 and a working token when the email send rejects</code>; <code>sign-up calls sendWelcome once with the new shopper's email and name</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Run and confirm failures.</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Implement <code>sendWelcome</code> and <code>welcomeMessage</code>,</strong> and call <code>sendWelcome</code> from <code>signup</code> after the insert, <code>await</code>ed but its result ignored (failure logged without secrets). The implementer drafts the subject and body in <code>welcome-copy.js</code> (short, plain, uses the person's name, no promises about prices beyond "member pricing"), then <strong>stops and shows the wording to the user for approval</strong> before any deploy.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 5: Run <code>npm test</code>; commit</strong> <code>feat: welcome email on sign-up</code> (after wording approval).</p>
+</li>
+</ul><h3 id="task-5-end-to-end-script-readme-stage-deploy">Task 5: End-to-end script, README, stage deploy</h3><p><strong>Files:</strong></p><ul class="contains-task-list">
+<li>
+<p>Modify: <code>e2e/curl-e2e.sh</code>, <code>README.md</code>, <code>.env</code> (local only, not committed: add <code>EMAIL_API_KEY</code>, <code>EMAIL_FROM</code>, <code>EMAIL_FROM_NAME</code>, optional <code>SIGNUP_RATE_LIMIT_IP</code>, <code>MAX_SELF_SIGNUPS</code>)</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Extend <code>e2e/curl-e2e.sh</code></strong> with checks (same <code>check</code> style): sign-up <code>201</code> and <code>me</code> works with the returned token; duplicate email <code>409</code>; short password <code>400</code>; membership on then <code>me</code> shows <code>member</code>; membership off shows <code>guest</code>; membership without token <code>401</code>; sign-up from a disallowed origin <code>400</code>; archived demo sign-up <code>404</code>; delete the created shopper in cleanup.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Document in <code>README.md</code>:</strong> endpoints <code>shopper/signup</code> and <code>shopper/membership</code>, the new inputs, the collections note (<code>shoppers.source</code>), and the sign-up limits.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: User runs the deploy:</strong> <code>npx -y @adobe/aio-cli@11.2.0 app deploy --no-publish</code> to stage, then <code>BASE=... ORG=... e2e/curl-e2e.sh</code>. Expected: all checks pass (31 existing plus the new ones).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Commit</strong> <code>docs: README and e2e for self-service accounts</code>; open a PR in SVC.</p>
+</li>
+</ul></div>
+<div><h2 id="part-b-storefront-site">Part B: Storefront (SITE)</h2><h3 id="task-6-account-module-config-and-housekeeping">Task 6: Account module, config and housekeeping</h3><p><strong>Files:</strong></p><ul>
+<li>Create: <code>scripts/account.js</code>, <code>tests/account.test.mjs</code></li>
+<li>Modify: <code>config.json</code>, <code>package.json</code> (script <code>"test": "node --test tests/"</code>), <code>AGENTS.md</code>, <code>demo/seed/settings.json</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Produces from <code>scripts/account.js</code> (ES module, no top-level browser access):</p>
+<ul>
+<li><code>SESSION_KEY = 'frescopa-account'</code></li>
+<li><code>getSession(storage?: Storage, now?: number): { token: string, expiresAt: number, shopper: { shopperId: string, email: string, name: string, group: string } } | null</code> (returns <code>null</code> when missing, malformed or expired)</li>
+<li><code>setSession(payload: { token: string, expiresIn: number, shopper: object }, storage?: Storage, now?: number): void</code></li>
+<li><code>clearSession(storage?: Storage): void</code></li>
+<li><code>priceBookFor(group?: string): 'member' | 'guest'</code> (only <code>member</code> maps to <code>member</code>)</li>
+<li><code>safeReturnPath(value: string | null, fallback = '/account'): string</code> (same-origin absolute path only: starts with <code>/</code>, not <code>//</code>, no backslash, no scheme)</li>
+<li><code>getAccountConfig(fetchFn?): Promise&#x3C;{ apiBase: string, demoId: string }></code> reading <code>/config.json</code> keys <code>public.default['shopper-api']</code> and <code>public.default['demo-id']</code></li>
+<li><code>accountApi(path: string, options?: { method?: string, body?: object, auth?: boolean }): Promise&#x3C;object></code> sending <code>demoId</code> in the body (POST) or query (GET), the bearer token when <code>auth</code>, and throwing an <code>Error</code> with <code>.status</code> and the service's <code>error</code> message otherwise</li>
+<li><code>applySessionPriceBook(): Promise&#x3C;void></code> (dynamic-imports <code>@dropins/tools/event-bus.js</code>; emits <code>events.emit('auth/adobe-commerce-optimizer', { priceBookId })</code> using <code>priceBookFor(getSession()?.shopper.group)</code>; does nothing when signed out)</li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Write failing tests</strong> in <code>tests/account.test.mjs</code> (<code>node:test</code>, fake storage object): <code>getSession returns null when empty, malformed JSON or expired</code>; <code>setSession then getSession round-trips and computes expiresAt from expiresIn</code>; <code>clearSession removes it</code>; <code>priceBookFor: member -> member; guest, wholesale, retail, undefined -> guest</code>; <code>safeReturnPath accepts /products/x?y=1 and rejects //evil.com, https://evil.com, /\\evil.com, javascript:alert(1), empty and null (returns fallback)</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Run <code>npm test</code>; confirm failures.</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Implement <code>scripts/account.js</code> to the interfaces above.</strong> Storage and clock are injectable parameters so tests need no browser.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Run <code>npm test</code> and <code>npm run lint</code>; confirm pass.</strong></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 5: Housekeeping edits:</strong></p>
+<ul>
+<li><code>config.json</code>: add under <code>public.default</code> <code>"shopper-api": "&#x3C;stage base URL from the SVC README>"</code> and <code>"demo-id": "&#x3C;demoId from Task 1>"</code>.</li>
+<li><code>demo/seed/settings.json</code>: change the price books to <code>guest</code> and <code>member</code> to match the tenant, and <code>defaultPriceBookId</code> to <code>guest</code>; run <code>cd demo &#x26;&#x26; npm test &#x26;&#x26; npm run validate -- --source=local</code> and fix any product price rows still using <code>retail</code>.</li>
+<li><code>AGENTS.md</code>: add a section "Demo accounts" saying sign-up, sign-in and the member switch are allowed through <code>frescopa-demo-services</code>; the welcome email provider is an approved server-side service; the session token lives in <code>sessionStorage</code>; the <code>commerce-*</code> blocks remain out of scope.</li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 6: Commit</strong> <code>feat: account module, config and AGENTS.md</code>.</p>
+</li>
+</ul><h3 id="task-7-price-book-applied-from-the-session">Task 7: Price book applied from the session</h3><p><strong>Files:</strong></p><ul>
+<li>Modify: <code>scripts/scripts.js</code> (one line after <code>await initializeCommerce()</code> in the commerce branch)</li>
+<li>Test: browser check</li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Consumes: <code>applySessionPriceBook()</code> from <code>scripts/account.js</code> (dynamic import: <code>(await import('./account.js')).applySessionPriceBook()</code>).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Add the call</strong> immediately after <code>await initializeCommerce();</code> so the price-book event fires after the auth drop-in's own empty emit (which otherwise clears the header) and before the product block loads.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Browser check on a PDP (<code>/products/fresco-original/csm5125</code>, <code>aem up</code>):</strong> with no session the price is <code>$299.00</code>; after <code>sessionStorage.setItem('frescopa-account', JSON.stringify({ token: 'x', expiresAt: Date.now() + 3.6e6, shopper: { shopperId: 'x', email: 'a@b.c', name: 'A', group: 'member' } }))</code> and a reload the price is <code>$254.15</code>; with an expired <code>expiresAt</code> it is <code>$299.00</code> again. Expected: matches, and no new console errors.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: <code>npm run lint</code>; commit</strong> <code>feat: apply session price book on commerce pages</code>.</p>
+</li>
+</ul><h3 id="task-8-create-account-and-sign-in-blocks">Task 8: <code>create-account</code> and <code>sign-in</code> blocks</h3><p><strong>Files:</strong></p><ul>
+<li>Create: <code>blocks/create-account/create-account.js|css</code>, <code>blocks/sign-in/sign-in.js|css</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Consumes: <code>accountApi</code>, <code>setSession</code>, <code>getSession</code>, <code>safeReturnPath</code> from <code>scripts/account.js</code>.</p>
+</li>
+<li>
+<p>Produces: <code>export default function decorate(block: Element): void</code> in each block. Form fields use <code>autocomplete</code> values: <code>name</code>, <code>email</code>, <code>new-password</code> (create) / <code>current-password</code> (sign in). On success: <code>setSession(response)</code> then <code>window.location.assign(safeReturnPath(new URLSearchParams(location.search).get('return')))</code>. Errors render in a <code>role="alert"</code> element: <code>409</code> shows "That email already has an account", <code>401</code> shows "Invalid email or password", <code>429</code> shows "Too many attempts, try again shortly", anything else shows the service's message or "Something went wrong, try again".</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Implement both blocks</strong> from the approved mockup (labels and links from Global Constraints; create form has Name, Email, Password; each links to the other with <code>?return=</code> preserved). The submit button is disabled while the request is pending and re-enabled on error. A signed-in visitor who opens either page is sent to <code>/account</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Style</strong> with D1 tokens (<code>--crema</code>, <code>--ink</code>, <code>--roast</code>, <code>--ember</code>), 44px inputs and buttons, pill button, focus ring from <code>styles/styles.css</code>, mobile-first with no horizontal scroll at 390 and 1440. Run <code>npm run lint</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Browser check</strong> with a throwaway page (<code>drafts/</code>, not committed) at 1440 and 390: create an account (real service), land on <code>/account</code>; submit twice quickly and see one account and one error; wrong password shows the alert; <code>?return=//evil.com</code> lands on <code>/account</code>. Expected: all pass, no console errors.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: Commit</strong> <code>feat: create-account and sign-in blocks</code>.</p>
+</li>
+</ul><h3 id="task-9-account-block">Task 9: <code>account</code> block</h3><p><strong>Files:</strong></p><ul>
+<li>Create: <code>blocks/account/account.js|css</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Consumes: <code>getSession</code>, <code>clearSession</code>, <code>setSession</code>, <code>accountApi</code> from <code>scripts/account.js</code>.</p>
+</li>
+<li>
+<p>Produces: <code>export default function decorate(block: Element): void</code>. Signed out or expired: <code>location.replace('/account/sign-in?return=/account')</code>. Signed in: shows the <code>Your account</code> heading (one <code>h1</code> on the page), name, email, a switch (<code>&#x3C;button role="switch" aria-checked></code> labelled <code>Member</code>) and <code>Sign out</code>. Toggling calls <code>accountApi('shopper/membership', { method: 'POST', body: { member }, auth: true })</code>, then <code>setSession(response)</code>. A <code>401</code> clears the session and redirects as above; a <code>409</code> shows an inline message and leaves the switch unchanged.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Implement and style</strong> (D1; switch is a visible control with a text label, state not carried by colour alone).</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Browser check:</strong> sign in, toggle on, open a PDP and see <code>$254.15</code>; toggle off, see <code>$299.00</code>; reload <code>/account</code> stays signed in; <strong>Sign out</strong> clears the session and returns to <code>/</code>; with an expired session the page redirects to sign-in with <code>return=/account</code>. Expected: all pass at 1440 and 390.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Commit</strong> <code>feat: account block</code>.</p>
+</li>
+</ul><h3 id="task-10-header-da-pages-and-nav">Task 10: Header, DA pages and nav</h3><p><strong>Files:</strong></p><ul>
+<li>Modify: <code>blocks/header/header.js</code>, <code>blocks/header/header.css</code> (only if needed)</li>
+<li>DA content (via the DA tools): <code>/account/create</code>, <code>/account/sign-in</code>, <code>/account</code>, and <code>/nav</code></li>
+</ul><p><strong>Interfaces:</strong></p><ul class="contains-task-list">
+<li>
+<p>Consumes: <code>getSession</code> from <code>scripts/account.js</code>.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 1: Header behaviour.</strong> After <code>buildTools</code>, when a session exists remove the tool links whose <code>href</code> ends with <code>/account/sign-in</code> or <code>/account/create</code>; the account icon link stays. No commerce code is loaded.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 2: Author DA content.</strong> Each page is one section with one block (<code>create-account</code>, <code>sign-in</code>, <code>account</code>) and metadata <code>title</code> and <code>robots: noindex</code>. Edit <code>/nav</code> tools list to: <code>My Account</code> (icon link to <code>/account</code>), <code>Sign in</code> (<code>/account/sign-in</code>), <code>Create account</code> (<code>/account/create</code>). Preview all four, never publish.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 3: Full browser check at 1440 and 390 on the branch preview:</strong> signed out shows <code>Sign in</code> and <code>Create account</code>; after sign-up the header hides them and the icon link opens <code>/account</code>; no console errors beyond the known cart/wishlist ones; no horizontal scroll at 360, 390, 768, 1024, 1440, 1920.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 4: <code>npm run lint</code>; open the SITE PR</strong> with preview links for <code>/account</code>, <code>/account/sign-in</code>, <code>/account/create</code> and one PDP; state that the welcome email is verified separately by the user.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> <strong>Step 5: Commit</strong> <code>feat: header account links and account pages</code>.</p>
+</li>
+</ul></div>
+<div><h2 id="self-review">Self-review</h2><ul>
+<li><strong>Spec coverage:</strong> goals (real accounts, open sign-up, member switch, account page, three forms, welcome email, guest default) map to Tasks 1, 3, 4, 8, 9; non-goals have no tasks by design; anti-goals map to Tasks 1 to 4 tests; registration is Task 1; service config, price-book mapping, group handling for non-guest/member groups, limits, token life, session location and AGENTS.md amendment are in Tasks 2, 3, 6, 7 and 6.</li>
+<li><strong>Types:</strong> <code>getSession</code>, <code>setSession</code>, <code>priceBookFor</code>, <code>safeReturnPath</code>, <code>accountApi</code> and <code>applySessionPriceBook</code> are defined in Task 6 and used with the same names in Tasks 7 to 10; <code>sendWelcome</code> and <code>welcomeMessage</code> are defined in Task 4 and used only there.</li>
+<li><strong>Proportion:</strong> the plan states decisions, signatures and test assertions, with bodies left to the implementer.</li>
+</ul></div>
