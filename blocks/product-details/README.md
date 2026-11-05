@@ -4,6 +4,19 @@
 
 The Product Details block provides comprehensive product detail page functionality using multiple @dropins/storefront-pdp containers. It handles product display, configuration, cart operations, wishlist integration, and SEO optimization with dynamic mode switching between add and update operations.
 
+## Variants (band colour)
+
+The top band behind the photo and product name is dawn amber by default. Authors pick another ground in DA by naming the block with a variant:
+
+| Block name in DA | Band |
+| --- | --- |
+| `Product Details` | dawn amber (default) |
+| `Product Details (teal)` | teal, crema text |
+| `Product Details (coral)` | coral, roast text |
+| `Product Details (roast)` | midnight roast, crema text, amber button |
+
+Each variant sets the `--pdp-*` custom properties at the top of `product-details.css`; add a variant by defining those seven tokens under a new `.product-details.<name>` selector.
+
 ## Integration
 
 <!-- ### Block Configuration
