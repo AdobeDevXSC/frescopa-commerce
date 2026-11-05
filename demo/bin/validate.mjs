@@ -5,7 +5,7 @@ import { loadCatalog } from '../lib/catalog.mjs';
 import { validateCatalog } from '../lib/validate.mjs';
 
 const HELP = `Usage: npm run validate -- [--source=da|local]
-  --source=da     read /products and /commerce/settings from DA (default; needs DA_ORG, DA_SITE, DA_TOKEN)
+  --source=da     read /inventory and /commerce/settings from DA (default; needs DA_ORG, DA_SITE, DA_TOKEN)
   --source=local  read demo/seed/ instead`;
 
 export function printReport(result, catalog) {

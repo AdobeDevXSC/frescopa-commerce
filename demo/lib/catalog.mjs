@@ -6,7 +6,8 @@ import { daConfig, SEED_DIR } from './config.mjs';
 import { listFolder, getSource } from './da.mjs';
 import { parseSettings } from './settings.mjs';
 
-export const PRODUCTS_FOLDER = 'products';
+// Structured product data lives in /inventory; /products is reserved for storefront PDP pages.
+export const PRODUCTS_FOLDER = 'inventory';
 export const SETTINGS_PATH = 'commerce/settings.json';
 export const SCHEMA_NAME = 'aco-product';
 
