@@ -25,7 +25,7 @@ for (const field of ['sku', 'name', 'urlKey', 'status']) {
   test(`schema: missing ${field} is an error`, () => {
     const r = mutate((c) => { delete c.products[0].data[field]; });
     assert.equal(r.ok, false);
-    assert.ok(r.errors.some((e) => e.where.startsWith('/products/beans')));
+    assert.ok(r.errors.some((e) => e.where.startsWith('/inventory/beans')));
   });
 }
 test('schema: invalid status enum', () => {

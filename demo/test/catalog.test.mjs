@@ -19,8 +19,8 @@ test('loadLocalCatalog: reads settings and products from a directory', () => {
   assert.match(c.source, /local seed/);
 });
 
-test('loadLocalCatalog: products sorted with /products/<name> paths', () => {
+test('loadLocalCatalog: products sorted with /inventory/<name> paths', () => {
   const c = loadLocalCatalog(dir);
-  assert.deepEqual(c.products.map((p) => p.path), ['/products/beans', '/products/espresso', '/products/tea']);
+  assert.deepEqual(c.products.map((p) => p.path), ['/inventory/beans', '/inventory/espresso', '/inventory/tea']);
   assert.equal(c.products[1].data.sku, 'ESP-1');
 });
