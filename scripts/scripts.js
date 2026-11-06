@@ -227,6 +227,7 @@ async function loadEager(doc) {
       try {
         const { initializeCommerce, loadCommerceEager } = await commerce;
         await initializeCommerce();
+        await (await import('./account.js')).applySessionPriceBook();
         decorateMain(main);
         await loadCommerceEager();
       } catch (e) {

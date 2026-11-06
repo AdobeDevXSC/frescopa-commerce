@@ -1,0 +1,75 @@
+.sign-in {
+  box-sizing: border-box;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 48px) 0;
+}
+
+.sign-in h1 {
+  margin: 0 0 28px;
+  font-size: var(--heading-font-size-l);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+.sign-in form {
+  display: grid;
+  gap: 20px;
+}
+
+.sign-in .sign-in-field {
+  display: grid;
+  gap: 8px;
+}
+
+.sign-in label {
+  font: 600 var(--body-font-size-xs) / 1.4 var(--body-font-family);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sign-in input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  border: 2px solid var(--roast);
+  border-radius: var(--radius-pill);
+  padding: 12px 22px;
+  background-color: var(--white);
+  color: var(--ink);
+  font: 400 var(--body-font-size-m) / 1.4 var(--body-font-family);
+}
+
+.sign-in .sign-in-error {
+  margin: 0;
+  color: var(--ember);
+  font-weight: 600;
+}
+
+.sign-in .sign-in-error:empty {
+  display: none;
+}
+
+.sign-in button.button {
+  justify-self: start;
+  min-width: 44px;
+}
+
+.sign-in button.button:disabled {
+  opacity: 0.6;
+}
+
+.sign-in .sign-in-switch {
+  margin: 28px 0 0;
+}
+
+.sign-in .sign-in-switch a {
+  display: inline-block;
+  padding: 12px 0;
+}
+
+@media (width < 600px) {
+  .sign-in button.button {
+    justify-self: stretch;
+  }
+}
